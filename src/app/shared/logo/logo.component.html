@@ -1,0 +1,18 @@
+<div [ngClass]="{'logo': !isToolbar, 'logoToolbar': isToolbar}">
+    <h1 
+      class="logoCity"
+      [@fadeInOut]="'in'"
+      *ngFor="let letter of logoCity; let i = index"
+      [style.animation-delay.ms]="i * 100"
+    >
+      {{ letter | uppercase }}
+    </h1>
+    <h1
+      class="logoGuard"
+      [@fadeInOut]="'in'"
+      *ngFor="let letter of logoGuard; let i = index"
+      [style.animation-delay.ms]="(i + logoCity.length) * 100"
+    >
+      {{ letter | uppercase }}
+    </h1>
+  </div>

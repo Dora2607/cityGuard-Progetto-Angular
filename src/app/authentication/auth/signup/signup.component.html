@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="flexDiv">
+    <div class="logoContainer">
+      <app-logo></app-logo>
+    </div>
+    <div class="mainContainer">
+      <!--Signup Form-->
+      <mat-card class="signupCard">
+        <mat-card-title class="cardTitle">Sign up</mat-card-title>
+        <mat-card-content class="content">
+          <form
+            class="signupForm"
+            [formGroup]="signupForm"
+            (ngSubmit)="signup()"
+          >
+            <mat-form-field class="inputForm">
+              <input
+                class="inputField"
+                type="text"
+                matInput
+                placeholder="Name"
+                formControlName="name"
+                autocomplete="name"
+              />
+            </mat-form-field>
+            <mat-form-field class="inputForm">
+              <mat-label>Gender</mat-label>
+              <mat-select id="gender" formControlName="gender">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="inputForm">
+              <input
+                class="inputField"
+                type="email"
+                matInput
+                placeholder="Email"
+                formControlName="email"
+              />
+              <mat-error *ngIf="!signupForm.get('email')?.valid">
+                <span *ngIf="signupForm.get('email')?.errors"
+                  >Please enter a valid email address.</span
+                >
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputForm">
+              <input
+                class="inputField"
+                type="password"
+                matInput
+                placeholder="Password"
+                autocomplete="on"
+                formControlName="password"
+              />
+              <mat-error *ngIf="!signupForm.get('password')?.valid">
+                <span *ngIf="signupForm.get('password')?.errors"
+                  >Please enter a valid password.</span
+                >
+              </mat-error>
+            </mat-form-field>
+            <div class="btnForm">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                mat-button
+                [disabled]="!signupForm.valid"
+              >
+                Sign up
+              </button>
+              <p>or</p>
+              <button
+                type="button"
+                mat-stroked-button
+                color="accent"
+                routerLink=""
+              >
+                I have an account
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

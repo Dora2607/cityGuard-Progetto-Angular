@@ -1,1 +1,238 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Quicksand:wght@300..700&display=swap");
+
+$cityGuard-primary: (
+  (
+    50: #d9dfe8,
+    100: #b1b9c8,
+    200: #97afcc,
+    300: #92a0a5,
+    400: #375d7f,
+    500: #375d7f,
+    600: #375d7f,
+    700: #375d7f,
+    800: #375d7f,
+    900: #375d7f,
+    A100: #375d7f,
+    A200: #375d7f,
+    A400: #375d7f,
+    A700: #375d7f,
+    contrast: (
+      50: black,
+      100: black,
+      200: white,
+      300: white,
+      400: white,
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+      A100: white,
+      A200: white,
+      A400: white,
+      A700: white,
+    ),
+  )
+);
+
+$cityGuard-accent: (
+  (
+    50: #f0c808,
+    100: #f0c808,
+    200: #f0c808,
+    300: #f0c808,
+    400: #f0c808,
+    500: #f0c808,
+    600: #f0c808,
+    700: #f0c808,
+    800: #f0c808,
+    900: #f0c808,
+    A100: #f0c808,
+    A200: #f0c808,
+    A400: #f0c808,
+    A700: #f0c808,
+    contrast: (
+      50: black,
+      100: black,
+      200: black,
+      300: black,
+      400: black,
+      500: black,
+      600: black,
+      700: black,
+      800: black,
+      900: black,
+      A100: black,
+      A200: black,
+      A400: black,
+      A700: black,
+    ),
+  )
+);
+
+$my-primary: mat.m2-define-palette($cityGuard-primary);
+$my-accent: mat.m2-define-palette($cityGuard-accent);
+$my-warn: mat.m2-define-palette(mat.$m2-red-palette);
+$typography-config: mat.m2-define-typography-config(
+  $font-family: "Mukta, sans-serif",
+);
+
+// Define the theme object.
+$CityGuard-per-NTT-DATA-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography:$typography-config,
+  density: (
+    scale: 0,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+@include mat.all-component-themes($CityGuard-per-NTT-DATA-theme);
+
+// global styles
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//Colors
+$primary-color: #375d7f;
+$secondary-color: #d9dfe8;
+$accent-color: #f0c808;
+$warn-color: #f44336;
+$powder-blue: #97afcc;
+$cadet-gray: #92A0A5;
+$alice-blue: #EEF2F7;
+
+// Breakpoint Variables
+$breakpoint-small: 600px;
+$breakpoint-medium: 960px;
+$breakpoint-large: 1280px;
+$breakpoint-xlarge: 1920px;
+
+// Typography Variables
+$font-size-xs: 12px;
+$font-size-sm: 16px;
+$font-size-md: 20px;
+$font-size-lg: 24px;
+$font-size-xl: 28px;
+$font-size-xxl: 32px;
+$font-size-xxxl: 36px;
+$font-size-xxxxl: 42px;
+$font-size-xxxxxl: 74px;
+
+// Typography
+h1 {
+  font-size: $font-size-xxl;
+}
+h2 {
+  font-size: $font-size-xl;
+}
+h3 {
+  font-size: $font-size-lg;
+}
+h4 {
+  font-size: $font-size-md;
+}
+h5 {
+  font-size: $font-size-sm;
+}
+h6,
+p,
+button {
+  font-size: $font-size-xs;
+}
+
+html {
+  background-color: $secondary-color;
+  font-weight: 400;
+  font-style: normal;
+}
+
+// Media Queries
+@media (min-width: $breakpoint-small) {
+  // Typography
+  h1 {
+    font-size: $font-size-xxxl;
+  }
+  h2 {
+    font-size: $font-size-xxl;
+  }
+  h3 {
+    font-size: $font-size-xl;
+  }
+  h4 {
+    font-size: $font-size-lg;
+  }
+  h5 {
+    font-size: $font-size-md;
+  }
+  h6,
+  p,
+  button {
+    font-size: $font-size-sm;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  // Typography
+  h1 {
+    font-size: $font-size-xxxxl;
+  }
+  h2 {
+    font-size: $font-size-xxxl;
+  }
+  h3 {
+    font-size: $font-size-xxl;
+  }
+  h4 {
+    font-size: $font-size-xl;
+  }
+  h5 {
+    font-size: $font-size-lg;
+  }
+  h6,
+  p,
+  button {
+    font-size: $font-size-md;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  // Typography
+  h1 {
+    font-size: $font-size-xxxxxl;
+  }
+  h2 {
+    font-size: $font-size-xxxxl;
+  }
+  h3 {
+    font-size: $font-size-xxxl;
+  }
+  h4 {
+    font-size: $font-size-xxl;
+  }
+  h5{
+    font-size: $font-size-xl;
+  }
+  h6,
+  p,
+  button {
+    font-size: $font-size-lg;
+  }
+}
+
