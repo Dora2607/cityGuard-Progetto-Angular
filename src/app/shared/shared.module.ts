@@ -3,10 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from './material/material.module';
 import { LogoComponent } from './logo/logo.component';
+import { HeaderComponent } from './header/header.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [LogoComponent],
-  imports: [CommonModule, MaterialModule],
-  exports: [MaterialModule, LogoComponent],
+  declarations: [LogoComponent, HeaderComponent, SearchBarComponent],
+  imports: [CommonModule, MaterialModule, FormsModule],
+  exports: [MaterialModule, LogoComponent, HeaderComponent, SearchBarComponent],
 })
 export class SharedModule {}

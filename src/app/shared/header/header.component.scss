@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Fjalla+One&family=Rubik+Doodle+Shadow&display=swap");
+@import "../../../styles.scss"; 
+
+.toolbar{
+  justify-content: space-between;
+}
+
+
+.accountCircle{
+  color: $secondary-color
+}
+
+.searchIcon {
+  color: $accent-color;
+}
+
+.userAccountButton:hover{
+  .icon {
+    color: $accent-color;
+  }
+}

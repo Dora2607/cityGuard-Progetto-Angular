@@ -1,0 +1,30 @@
+@import "../../../styles.scss";
+
+.searchBar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: $powder-blue;
+
+  #searchInput {
+    width: 90%;
+    height: 1.5rem;
+    border-radius: 0.5rem;
+    padding: 1rem 1rem 1rem 1.5rem;
+    font-size: 16px;
+    border: none;
+    margin: 0 0.5rem;
+    box-shadow: 0px 6px 10px -1px rgba(0, 0, 0, 0.73);
+    transition: 0.3s ease;
+  }
+
+  .exitButton:hover {
+    .icon {
+      color: $warn-color;
+    }
+  }
+}
+
+.status {
+  width: 16px;
+}

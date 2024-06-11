@@ -1,0 +1,16 @@
+<mat-toolbar *ngIf="showSearchBar" class="toolbarTools searchBar">
+  <input
+    id="searchInput"
+    type="text"
+    name="search"
+    placeholder="Search..."
+    [(ngModel)]="search"
+    (keydown.enter)="submit()"
+  />
+  <!-- <button mat-icon-button (click)="submit()">
+        <mat-icon>search</mat-icon>
+      </button> -->
+  <button class="exitButton" mat-icon-button (click)="endSearch()">
+    <mat-icon class="icon">close</mat-icon>
+  </button>
+</mat-toolbar>

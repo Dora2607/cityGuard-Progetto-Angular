@@ -1,0 +1,34 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon class="accountCircle">account_circle</mat-icon>
+  </button>
+  <mat-menu class="userAccountMenu" #menu="matMenu">
+    <button
+      class="userAccountButton"
+      mat-menu-item
+      routerLink="usersManagement"
+    >
+      <mat-icon class="icon">home</mat-icon>
+      <span>Users List</span>
+    </button>
+    <button
+      class="userAccountButton"
+      mat-menu-item
+      routerLink="home/postOverview"
+    >
+      <mat-icon class="icon">people</mat-icon>
+      <span>Posts Overview</span>
+    </button>
+    <button class="userAccountButton" mat-menu-item (click)="logout()">
+      <mat-icon class="icon">logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+
+  <span><app-logo></app-logo></span>
+
+  <button mat-icon-button (click)="toggleSearchBar()">
+    <mat-icon class="searchIcon">search</mat-icon>
+  </button>
+</mat-toolbar>
+<app-search-bar></app-search-bar>

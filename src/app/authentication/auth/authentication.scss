@@ -11,15 +11,13 @@ $card-form-width: 70%;
   top: 0;
   left: 0;
   width: 100%;
-  max-height: $container-max-height;
+  min-height: $container-max-height;
   height: 100%;
   background: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 0 0 10px 10px;
-  
-  
 }
 
 ::-webkit-scrollbar {
@@ -40,6 +38,8 @@ $card-form-width: 70%;
   overflow: scroll;
   display: grid;
   place-content: center;
+  
+  
 
   .flexDiv {
     width: 80%;
@@ -58,13 +58,15 @@ $card-form-width: 70%;
   height: 100%;
   max-height: $container-height;
   width: $container-width;
+ 
 }
 
 .mainContainer {
   // max-height: $container-max-height;
   position: relative;
   max-height: 640px;
-    height: 600pc;
+  height: 600px;
+  
 }
 
 .logoContainer {
@@ -72,7 +74,7 @@ $card-form-width: 70%;
   border-radius: 10px 10px 0 0;
   transition: 0.4s;
   padding: 0.5rem;
-
+  
   & * {
     margin: 40px;
     color: #ccc;
@@ -155,7 +157,7 @@ $card-form-width: 70%;
   .logoContainer,
   .mainContainer {
     height: 100%;
-    max-height: $container-max-height;
+    min-height: $container-max-height;
     width: $container-width;
   }
 
@@ -197,13 +199,15 @@ $card-form-width: 70%;
   .logoContainer,
   .mainContainer {
     height: 100%;
-    max-height: 520px;
+    min-height: $container-max-height;
+    max-height: 620px;
     width: 450px;
   }
 
   .loginCard,
   .signupCard {
-    max-height: 520px;
+    min-height: $container-max-height;
+    max-height: 620px;
     height: 100%;
 
     .loginForm,
@@ -223,13 +227,13 @@ $card-form-width: 70%;
   .logoContainer,
   .mainContainer {
     height: 100%;
-    max-height: 620px;
+    min-height: 620px;
     width: 550px;
   }
 
   .loginCard,
   .signupCard {
-    max-height: 620px;
+    min-height: 620px;
     height: 100%;
 
     .loginForm,

@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           password: this.loginForm.value.password,
         }),
       );
-      this.router.navigate(['home']);
+      this.router.navigate(['features/usersManagement']);
     }
   }
 
