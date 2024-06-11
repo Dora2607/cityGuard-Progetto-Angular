@@ -1,0 +1,33 @@
+@import "../../../../../styles.scss";
+
+.usersViewCard {
+  margin: 3rem 1rem 2rem 1rem;
+  padding: 1rem;
+
+  .usersViewContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .usersView {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .manageUsers {
+      margin: 0.5rem;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-small) {
+  .usersViewCard {
+    margin: 3.5rem 1.5rem 2.5rem 1.5rem;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  .usersViewCard {
+    margin: 4rem 2rem 3rem 2rem;
+  }
+}

@@ -1,1 +1,45 @@
-<p>users-list works!</p>
+<mat-list class="homeContainer">
+  <h3>Users</h3>
+  <div
+    class="usersContainer"
+    *ngFor="let user of displayedUsers; let i = index"
+    [class.even]="i % 2 === 0"
+    [class.odd]="i % 2 === 1"
+  >
+    <mat-list-item id="{{ user.id }}" class="userItem">
+      <mat-icon
+        class="status"
+        [ngStyle]="{ color: user.status === 'active' ? 'green' : 'red' }"
+        matListItemIcon
+        >circle</mat-icon
+      >
+      <div class="userTitle" matListItemTitle>
+        <a [routerLink]="['/home/usersList', user.id]"
+          >{{ user.name }}
+          <mat-icon class="personalProfile" *ngIf="user.id === loggedUser.id"
+            >personal</mat-icon
+          ></a
+        >
+      </div>
+      <div class="userLine" matListItemLine>{{ user.email }}</div>
+    </mat-list-item>
+    <div
+      class="deleteButton"
+      [ngStyle]="{ display: isdeleteBtnClicked ? 'block' : 'none' }"
+    >
+      <button mat-icon-button color="warn" (click)="activeDeleteUser(user.id)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-list>
+<div class="goToBack">
+  <button
+    [ngStyle]="{ display: isdeleteBtnClicked ? 'block' : 'none' }"
+    mat-raised-button
+    color="accent"
+    (click)="goToPreviousPage()"
+  >
+    Back
+  </button>
+</div>

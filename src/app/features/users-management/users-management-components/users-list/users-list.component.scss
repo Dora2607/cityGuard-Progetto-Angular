@@ -1,0 +1,87 @@
+@import "../../../../../styles.scss";
+.even {
+  background-color: $powder-blue;
+}
+
+.odd {
+  background-color: $alice-blue;
+}
+
+.homeContainer {
+  margin: 1.5rem 1rem 2rem 1rem;
+  padding-bottom: 2rem;
+  h3 {
+    margin-bottom: 2rem;
+  }
+  .usersContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0 1rem 1rem;
+
+    .userItem {
+      flex-wrap: wrap;
+      align-content: stretch;
+      .status {
+        margin: 0;
+        align-self: center;
+        margin-right: 1rem;
+      }
+    }
+    .deleteButton {
+      margin-right: 1rem;
+    }
+  }
+}
+.userTitle {
+  font-size: $font-size-sm;
+
+  a {
+    text-decoration: none;
+    color: black;
+    .personalProfile {
+      vertical-align: middle;
+      color: $primary-color;
+    }
+    &:hover,
+    &:active {
+      color: $accent-color;
+    }
+  }
+}
+.userLine {
+  font-size: $font-size-xs;
+}
+
+.goToBack {
+  width: 90%;
+  display: flex;
+  justify-content: right;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: $breakpoint-small) {
+  .homeContainer {
+    margin: 2rem 3rem 2.5rem 3rem;
+  }
+  .userTitle {
+    font-size: $font-size-md;
+    padding-bottom: 0.5rem;
+  }
+  .userLine {
+    font-size: $font-size-sm;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  .homeContainer {
+    margin: 2.5rem 4rem 3rem 4rem;
+  }
+  .userTitle {
+    font-size: $font-size-lg;
+    padding-bottom: 0.5rem;
+  }
+  .userLine {
+    font-size: $font-size-md;
+  }
+}

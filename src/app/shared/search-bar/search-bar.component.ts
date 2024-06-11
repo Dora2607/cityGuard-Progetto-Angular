@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SearchBarService } from '../../services/search-bar.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,8 +10,18 @@ export class SearchBarComponent {
   showSearchBar = false;
   search!: string;
 
+  constructor(
+    private searchBarService:SearchBarService
+  ){
+    this.searchBarService.show$.subscribe(()=>{
+      this.showSearchBar = true;
+    });
+  }
+
   submit(){}
 
-  endSearch(){}
+  endSearch(){
+    this.showSearchBar = false;
+  }
 
 }

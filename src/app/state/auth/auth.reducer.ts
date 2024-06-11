@@ -72,7 +72,7 @@ export const selectIsLoggedIn = createSelector(
   (auth) => auth.loginSuccessful,
 );
 
-export const selectLoggedInUser = createSelector(
+export const selectLoggedUser = createSelector(
   selectAuthState,
   (auth) => auth.user,
 );
