@@ -5,6 +5,7 @@ import { AuthGuard } from '../../authentication/guard/auth.guard';
 import { UsersListComponent } from './users-management-components/users-list/users-list.component';
 import { AddUserComponent } from './users-management-components/add-user/add-user.component';
 
+
 const routes: Routes = [
   {
     path: '',

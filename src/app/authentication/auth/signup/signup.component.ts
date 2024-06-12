@@ -5,28 +5,18 @@ import { LogoService } from '../../../services/logo.service';
 
 import { Subject } from 'rxjs';
 import { register } from '../../../state/auth/auth.actions';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { fadeInOutAnimation } from '../../../shared/Animations/fadeInOut-animation';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: '../authentication.scss',
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [   // :enter is alias to 'void => *'
-        style({opacity:0}),
-        animate(500, style({opacity:1})) 
-      ]),
-      transition(':leave', [   // :leave is alias to '* => void'
-        animate(500, style({opacity:0})) 
-      ])
-    ])
-  ]
+  animations: [ fadeInOutAnimation ]
 })
 export class SignupComponent implements OnInit, OnDestroy {
   @HostBinding('@fadeInOut') fadeInOut = true;
-  @HostBinding('style.display')  display = 'block';
+  @HostBinding('style.display') display = 'block';
   public signupForm!: FormGroup;
   private destroy$ = new Subject<void>();
 
@@ -34,7 +24,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private store: Store,
     private logoService: LogoService,
-    private router: Router
+    private router: Router,
   ) {
     this.logoService.isToolbar = false;
   }
@@ -60,7 +50,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       );
     }
     this.router.navigate(['login']);
-
   }
 
   ngOnDestroy(): void {

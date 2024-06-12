@@ -4,10 +4,12 @@ import { Store } from '@ngrx/store';
 import { logout } from '../../state/auth/auth.actions';
 import { SearchBarService } from '../../services/search-bar.service';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  
 })
 export class HeaderComponent {
 

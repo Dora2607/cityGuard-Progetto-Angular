@@ -53,6 +53,14 @@
   font-size: $font-size-xs;
 }
 
+.spinner{
+  width: 100%;
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .goToBack {
   width: 90%;
   display: flex;

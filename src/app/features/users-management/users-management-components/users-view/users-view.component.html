@@ -1,4 +1,4 @@
-<mat-card class="usersViewCard" *ngIf="toggleUserView">
+<mat-card class="usersViewCard" [@fadeInOut]>
   <div class="usersViewContainer">
     <div class="userStatus">
       <button mat-button [matMenuTriggerFor]="sortByMenu">
@@ -33,7 +33,7 @@
         <button (click)="onUsersUpdated(35)" mat-menu-item>35</button>
       </mat-menu>
       <div class="manageUsers">
-        <button mat-icon-button color="primary" (click)="onaddUser()">
+        <button mat-icon-button color="primary" routerLink="addUser">
           <mat-icon>person_add</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="deleteButton()">

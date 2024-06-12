@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Users, newUser } from '../../../../models/users.model';
-import { UsersViewService } from '../../../../services/users-view.service';
 import { ApiService } from '../../../../services/api.service';
 import { UsersListService } from '../../../../services/users-list.service';
 import { Router } from '@angular/router';
@@ -13,8 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AddUserComponent implements OnInit{
 
-  public addUserForm!: FormGroup;
-  toggleUserView!: boolean;  
+  public addUserForm!: FormGroup; 
 
   addNewUser: newUser = {
     name: '',
@@ -24,7 +22,6 @@ export class AddUserComponent implements OnInit{
   };
 
   constructor(
-    private usersViewService: UsersViewService,
     private apiService: ApiService,
     private usersListService:UsersListService,
     private router: Router,
@@ -39,9 +36,6 @@ export class AddUserComponent implements OnInit{
       email: new FormControl('', Validators.required),
     });
 
-    this.usersViewService.currentToggleUsersView.subscribe(
-      (toggleComponent) => (this.toggleUserView = toggleComponent)
-    )
   }
 
   fullName() {
@@ -70,7 +64,6 @@ export class AddUserComponent implements OnInit{
         alert('User added successfully');
         const newUser = response as Users;
         this.usersListService.addUser(newUser);
-        this.usersViewService.setToggleUsersView(this.toggleUserView);
         this.router.navigate(['features/usersManagement']);
       },
     );
@@ -78,7 +71,6 @@ export class AddUserComponent implements OnInit{
 
   goBack(event: Event) {
     event.preventDefault();
-    this.usersViewService.setToggleUsersView(this.toggleUserView);
     this.router.navigate(['features/usersManagement']);
   }
 

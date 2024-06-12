@@ -14,6 +14,8 @@ export class UsersListService {
   allUsersChanged = new BehaviorSubject<Array<Users>>([]);
   displayedUsersChanged = new BehaviorSubject<Array<Users>>([]);
 
+  isLoading = new BehaviorSubject<boolean>(false);
+
   constructor() { }
 
   setAllUsers(users: Array<Users>) {

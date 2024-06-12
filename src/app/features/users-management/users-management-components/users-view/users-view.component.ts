@@ -1,27 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UsersViewService } from '../../../../services/users-view.service';
+import { fadeInOutAnimation } from '../../../../shared/Animations/fadeInOut-animation';
+
 
 @Component({
   selector: 'app-users-view',
   templateUrl: './users-view.component.html',
   styleUrl: './users-view.component.scss',
+  animations: [fadeInOutAnimation]
 })
-export class UsersViewComponent implements OnInit {
+export class UsersViewComponent  {
   status = 'All';
   usersShowCount = 35;
-  isAddUserClicked: boolean = true; 
   isDeleteBtnClicked: boolean = false;
-  toggleUserView!: boolean; 
+   
 
   constructor(
     private usersViewService:UsersViewService,
   ){}
-
-  ngOnInit(): void {
-    this.usersViewService.currentToggleUsersView.subscribe(
-      (toggleComponent) => (this.toggleUserView = toggleComponent)
-    )
-  }
 
   onStatusUpdate(newStatus: string): void {
     this.status = newStatus;
@@ -40,11 +36,6 @@ export class UsersViewComponent implements OnInit {
     this.usersViewService.updateUsersCount(count);
   }
 
-  onaddUser(): void {
-    this.isAddUserClicked = true;
-    this.usersViewService.setToggleUsersView(this.toggleUserView);
-    this.usersViewService.addUserButtonClicked.next(this.isAddUserClicked);
-  }
 
   deleteButton(): void {
     this.isDeleteBtnClicked = !this.isDeleteBtnClicked;

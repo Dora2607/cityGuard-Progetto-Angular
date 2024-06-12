@@ -5,28 +5,18 @@ import { LogoService } from '../../../services/logo.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { login } from '../../../state/auth/auth.actions';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { fadeInOutAnimation } from '../../../shared/Animations/fadeInOut-animation';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: '../authentication.scss',
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [   // :enter is alias to 'void => *'
-        style({opacity:0}),
-        animate(500, style({opacity:1})) 
-      ]),
-      transition(':leave', [   // :leave is alias to '* => void'
-        animate(500, style({opacity:0})) 
-      ])
-    ])
-  ]
+  animations: [fadeInOutAnimation],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   @HostBinding('@fadeInOut') fadeInOut = true;
-  @HostBinding('style.display')  display = 'block';
-  
+  @HostBinding('style.display') display = 'block';
+
   public loginForm!: FormGroup;
 
   private destroy$ = new Subject<void>();
