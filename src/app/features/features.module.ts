@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FeaturesRoutingModule } from './features-routing.module';
 import { UsersManagementModule } from './users-management/users-management.module';
+import { UserDetailsModule } from './user-details/user-details.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -11,7 +12,8 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FeaturesRoutingModule,
     UsersManagementModule,
-    SharedModule
-  ]
+    UserDetailsModule, 
+    SharedModule,
+  ],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}
