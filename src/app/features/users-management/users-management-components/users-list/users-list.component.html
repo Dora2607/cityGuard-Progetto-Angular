@@ -1,3 +1,4 @@
+<app-users-view></app-users-view>
 <ng-container *ngIf="!isLoading; else loadingTemplate">
   <mat-list class="homeContainer" [@listAnimation]>
     <h3>Users</h3>
@@ -17,7 +18,7 @@
           >circle</mat-icon
         >
         <div class="userTitle" matListItemTitle>
-          <a [routerLink]="['/home/usersList', user.id]"
+          <a [routerLink]="['/features/usersManagement/usersList',user.id]"
             >{{ user.name }}
             <mat-icon class="personalProfile" *ngIf="user.id === loggedUser.id"
               >personal</mat-icon

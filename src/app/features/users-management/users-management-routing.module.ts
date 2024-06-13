@@ -5,7 +5,6 @@ import { AuthGuard } from '../../authentication/guard/auth.guard';
 import { UsersListComponent } from './users-management-components/users-list/users-list.component';
 import { AddUserComponent } from './users-management-components/add-user/add-user.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -20,13 +19,20 @@ const routes: Routes = [
             component: UsersListComponent,
             canActivate: [AuthGuard],
           },
-
           {
             path: 'addUser',
             component: AddUserComponent,
             canActivate: [AuthGuard],
           },
-          
+          {
+            path: 'usersList/:id',
+            loadChildren: () =>
+              import('../user-details/user-details.module').then(
+                (m) => m.UserDetailsModule,
+              ),
+            canActivate: [AuthGuard],
+          },
+
           { path: '', redirectTo: 'usersList', pathMatch: 'full' },
         ],
       },
@@ -36,6 +42,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UsersManagementRoutingModule { }
+export class UsersManagementRoutingModule {}

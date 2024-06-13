@@ -8,7 +8,7 @@ import { UserPostsComponent } from './user-details-components/user-posts/user-po
 
 const routes: Routes = [
   {
-    path: 'userDetails',
+    path: '',
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
   },

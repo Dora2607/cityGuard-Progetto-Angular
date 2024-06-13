@@ -10,20 +10,4 @@ import { Subscription } from 'rxjs';
 })
 export class UsersManagementComponent {
 
-  isShowUsersView: boolean = true;
-  subscription: Subscription | undefined;
-
-  constructor(
-    
-    private router: Router,
-  ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.isShowUsersView = !event.urlAfterRedirects.includes('addUser');
-      }
-    });
-  }
-
-
-
 }
