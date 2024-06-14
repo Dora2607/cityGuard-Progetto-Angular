@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Comments } from '../models/comments.model';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -9,12 +9,15 @@ import { ApiService } from './api.service';
 export class CommentsService {
   comments: { [postId: number]: Comments[] } = {};
   commentsChanged = new Subject<{ [postId: number]: Comments[] }>();
+  isCommentsBoxLoading = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {}
 
   fetchComments(postId: number) {
+    this.isCommentsBoxLoading.next(true);
     this.apiService.getComments(postId).subscribe((comments) => {
       this.setComments(postId, comments);
+      this.isCommentsBoxLoading.next(false);
     });
   }
 

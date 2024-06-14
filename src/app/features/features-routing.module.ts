@@ -10,12 +10,7 @@ const routes: Routes = [
       import('./users-management/users-management.module').then((m) => m.UsersManagementModule),
     canActivate: [AuthGuard],
   },
-  //  {
-  //    path: 'usersManagement/usersList/:id',
-  //    loadChildren: () =>
-  //      import('./user-details/user-details.module').then((m) => m.UserDetailsModule),
-  //    canActivate: [AuthGuard],
-  //  },
+
 ];
 
 @NgModule({

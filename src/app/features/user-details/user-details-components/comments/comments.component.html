@@ -1,23 +1,30 @@
-<div class="commentContainer">
-  <ng-container *ngIf="comments.length !== 0; else noComments">
-    <div class="commentContent" *ngFor="let comment of comments">
-      <mat-card-header class="commentHeader">
-        <mat-card-title class="commentTitle">
-          {{ comment.name }}
-        </mat-card-title>
-        <mat-card-subtitle class="commentSubtitle"
-          >by:
-          {{ comment.email }}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content class="commentBody">
-        {{ comment.body }}
-      </mat-card-content>
-    </div>
+<div class="commentContainer" [@listAnimation]>
+  <ng-container *ngIf="!isCommentBoxLoading; else loading">
+    <ng-container *ngIf="comments.length !== 0; else noComments">
+      <div class="commentContent" *ngFor="let comment of comments">
+        <mat-card-header class="commentHeader">
+          <mat-card-title class="commentTitle">
+            {{ comment.name }}
+          </mat-card-title>
+          <mat-card-subtitle class="commentSubtitle"
+            >by:
+            {{ comment.email }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="commentBody">
+          {{ comment.body }}
+        </mat-card-content>
+      </div>
+    </ng-container>
+    <ng-template #noComments>
+      <div class="emptyComments">
+        <mat-card-content>There are no comments.</mat-card-content>
+      </div>
+    </ng-template>
   </ng-container>
-  <ng-template #noComments>
-    <div class="emptyComments">
-      <mat-card-content>There are no comments.</mat-card-content>
+  <ng-template #loading>
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
     </div>
   </ng-template>
 </div>
