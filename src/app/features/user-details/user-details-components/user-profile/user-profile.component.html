@@ -1,1 +1,43 @@
-<p>user-profile works!</p>
+<mat-card class="userProfileCard" [@fadeInOut]>
+  <mat-card-header class="dataUserHeader">
+    <mat-card-title class="cardTitle"
+      ><h3>{{ userProfile.name }}</h3></mat-card-title
+    >
+    <mat-card-subtitle class="cardSubtitle"
+      ><p>{{ userProfile.email }}</p></mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content class="dataUserContent">
+    <p>{{ userProfile.gender }}</p>
+    <p class="dataUserDescription">{{ randomDescription }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="userActions">
+      <div class="postNum">
+        <h5>Posts</h5>
+        <p>{{postNumber}}</p> 
+      </div>
+      <ng-container *ngIf="todos.length !== 0; else noTodos">
+        <div class="todosContainer" *ngFor="let todo of todos">
+          <h5>Todo</h5>
+          <p>{{ todo.title }}</p>
+          <p class="dateTodos">
+            {{ todo.due_on | date }}
+            <span *ngIf="todo.status === 'completed'"
+              ><mat-icon>done</mat-icon></span
+            >
+            <span *ngIf="todo.status === 'pending'"
+              ><mat-icon>pending</mat-icon></span
+            >
+          </p>
+        </div>
+      </ng-container>
+      <ng-template #noTodos>
+        <div class="todosContainer" class="todoNone">
+          <h5>Todo</h5>
+          <p>0</p>
+        </div>
+      </ng-template>
+    </div>
+  </mat-card-actions>
+</mat-card>

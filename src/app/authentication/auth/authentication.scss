@@ -157,7 +157,7 @@ $card-form-width: 70%;
   .logoContainer,
   .mainContainer {
     height: 100%;
-    max-height: $container-max-height;
+    min-height: $container-max-height;
     width: $container-width;
   }
 

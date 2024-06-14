@@ -1,0 +1,84 @@
+@import "../../../../../styles.scss";
+.userProfileCard {
+  background: $powder-blue;
+  margin: 2rem;
+  .dataUserHeader {
+    margin: auto;
+    text-align: center;
+    .cardTitle {
+      padding-top: 1rem;
+      padding-bottom: 0.5rem;
+    }
+    .cardSubtitle {
+      color: black;
+    }
+  }
+  .dataUserContent {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    .dataUserDescription {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+
+  .userActions {
+    width: 100%;
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    h5 {
+      color: $primary-color;
+      padding-bottom: 0.5rem;
+    }
+
+    .postNum,
+    .todoNone {
+      text-align: center;
+      padding-left: 1rem;
+    }
+
+    .todosContainer {
+      padding-left: 1.5rem;
+      .dateTodos {
+        color: $powder-blue;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 0.25rem;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  .userProfileCard {
+    .dataUserHeader {
+      .cardTitle {
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+      }
+    }
+    .dataUserContent p {
+      padding: 0.25rem;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .userProfileCard {
+    .dataUserHeader {
+      .cardTitle {
+        padding-top: 2rem;
+        padding-bottom: 1.5rem;
+      }
+    }
+    .dataUserContent p {
+      padding: 0.5rem;
+    }
+  }
+}

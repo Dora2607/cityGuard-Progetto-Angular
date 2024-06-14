@@ -1,1 +1,90 @@
-<p>user-posts works!</p>
+<div class="postsContainer" [@fadeInOut]>
+  <mat-card class="postContainer" *ngFor="let post of posted">
+    <div class="postBorder"></div>
+    <div class="postContent">
+      <mat-card-header>
+        <mat-card-title class="postTitle">{{ post.title }}</mat-card-title>
+        <mat-card-subtitle class="postSubtitle"
+          >by: {{ userProfile.name }}</mat-card-subtitle
+        >
+        <!-- <mat-card-subtitle class="postSubtitle" *ngIf="addedPosts[post.user_id]"
+            >by: {{ loggedUser.name }}</mat-card-subtitle
+          > -->
+      </mat-card-header>
+
+      <mat-card-content>
+        {{ post.body }}
+      </mat-card-content>
+    </div>
+    <mat-card-actions class="postFooter">
+      <div class="btntoggle">
+        <button mat-icon-button (click)="toggleComments(post.id)">
+          <ng-container *ngIf="isComponentVisible[post.id]; else elseBlock">
+            <mat-icon mat-icon-button>chat</mat-icon>
+          </ng-container>
+          <ng-template #elseBlock>
+            <mat-icon mat-icon-button>chat_bubble</mat-icon>
+          </ng-template>
+        </button>
+      </div>
+      <div class="btnAddComment">
+        <button mat-icon-button (click)="toggleAddComments(post.id)">
+          <mat-icon>create</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+    <!-- Pop up for comments -->
+    <div class="popupCommentBox" *ngIf="isComponentVisible[post.id]">
+      <app-comments [postId]="post.id"></app-comments>
+    </div>
+
+    <div class="addCommentsBox" *ngIf="addCommentBox[post.id]">
+      <div class="commentContent">
+        <mat-card-header class="commentHeader">
+          <mat-card-title class="commentTitle">{{
+            loggedUser.name
+          }}</mat-card-title>
+          <mat-card-subtitle class="commentSubtitle"
+            >by: {{ loggedUser.email }}</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content class="commentCardContent">
+          <form [formGroup]="commentForm" (ngSubmit)="addComment(post.id)">
+            <mat-form-field class="commentTextarea">
+              <mat-label>Enter your comment</mat-label>
+              <textarea
+                matInput
+                id="commentText"
+                formControlName="commentText"
+              ></textarea>
+            </mat-form-field>
+            <div class="btnAddComment">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                mat-button
+                [disabled]="!commentForm.valid"
+              >
+                Add
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                mat-button
+                (click)="goBack(post.id)"
+              >
+                Delete
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="emptyPost" *ngIf="isEmptyPostsArr">
+    <h3>There are no posts from this user</h3>
+  </div>
+</div>

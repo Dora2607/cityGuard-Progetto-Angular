@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { UserDetailsRoutingModule } from './user-details-routing.module';
 import { UserDetailsComponent } from './user-details.component';
@@ -16,7 +17,7 @@ import { CommentsComponent } from './user-details-components/comments/comments.c
     UserPostsComponent,
     CommentsComponent,
   ],
-  imports: [CommonModule, UserDetailsRoutingModule, SharedModule],
+  imports: [CommonModule, UserDetailsRoutingModule, SharedModule, ReactiveFormsModule],
   exports: [
     UserDetailsComponent,
     UserProfileComponent,

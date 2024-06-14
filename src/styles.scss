@@ -1,9 +1,7 @@
 // Custom Theming for Angular Material
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 @include mat.core();
-
-@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Quicksand:wght@300..700&display=swap");
 
 $cityGuard-primary: (
   (
@@ -83,21 +81,19 @@ $typography-config: mat.m2-define-typography-config(
 );
 
 // Define the theme object.
-$CityGuard-per-NTT-DATA-theme: mat.m2-define-light-theme((
-  color: (
-    primary: $my-primary,
-    accent: $my-accent,
-    warn: $my-warn,
-  ),
-  typography:$typography-config,
-  density: (
-    scale: 0,
+$CityGuard-per-NTT-DATA-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    typography: $typography-config,
+    density: (
+      scale: 0,
+    ),
   )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
+);
 
 @include mat.all-component-themes($CityGuard-per-NTT-DATA-theme);
 
@@ -115,8 +111,8 @@ $secondary-color: #d9dfe8;
 $accent-color: #f0c808;
 $warn-color: #f44336;
 $powder-blue: #97afcc;
-$cadet-gray: #92A0A5;
-$alice-blue: #EEF2F7;
+$cadet-gray: #92a0a5;
+$alice-blue: #eef2f7;
 
 // Breakpoint Variables
 $breakpoint-small: 600px;
@@ -159,8 +155,10 @@ button {
 
 html {
   background-color: $secondary-color;
+  font-family: "Mukta, sans-serif";
   font-weight: 400;
   font-style: normal;
+  line-height: 1.6;
 }
 
 // Media Queries
@@ -226,7 +224,7 @@ html {
   h4 {
     font-size: $font-size-xxl;
   }
-  h5{
+  h5 {
     font-size: $font-size-xl;
   }
   h6,
@@ -235,4 +233,3 @@ html {
     font-size: $font-size-lg;
   }
 }
-

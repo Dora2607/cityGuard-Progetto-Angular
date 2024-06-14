@@ -1,1 +1,23 @@
-<p>comments works!</p>
+<div class="commentContainer">
+  <ng-container *ngIf="comments.length !== 0; else noComments">
+    <div class="commentContent" *ngFor="let comment of comments">
+      <mat-card-header class="commentHeader">
+        <mat-card-title class="commentTitle">
+          {{ comment.name }}
+        </mat-card-title>
+        <mat-card-subtitle class="commentSubtitle"
+          >by:
+          {{ comment.email }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="commentBody">
+        {{ comment.body }}
+      </mat-card-content>
+    </div>
+  </ng-container>
+  <ng-template #noComments>
+    <div class="emptyComments">
+      <mat-card-content>There are no comments.</mat-card-content>
+    </div>
+  </ng-template>
+</div>
