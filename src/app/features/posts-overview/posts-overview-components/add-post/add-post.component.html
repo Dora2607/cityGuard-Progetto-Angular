@@ -1,0 +1,68 @@
+<div class="addPostContainer">
+  <div class="showBox">
+    <button
+      type="button"
+      mat-icon-button
+      class="btnAdd"
+      (click)="showAddPostBox()"
+    >
+      <mat-icon *ngIf="toggleIcon">add</mat-icon>
+      <mat-icon *ngIf="!toggleIcon">close</mat-icon>
+    </button>
+  </div>
+  <mat-card class="addPostCard" *ngIf="toggleVisibility">
+    <div class="postBox">
+      <div class="addPostContent">
+        <mat-card-header class="addPostHeader">
+          <mat-card-title class="addPostTitle">{{
+            loggedInUser.name
+          }}</mat-card-title>
+          <mat-card-subtitle class="addPostSubtitle"
+            >by: {{ loggedInUser.email }}</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content class="addPostCardContent">
+          <form [formGroup]="postForm" (ngSubmit)="addPost(loggedInUser.id)">
+            <mat-form-field class="addPostTitle">
+              <mat-label>Title</mat-label>
+              <input
+                matInput
+                id="postTitle"
+                type="text"
+                formControlName="postTitle"
+              />
+            </mat-form-field>
+            <mat-form-field class="addPostTextarea">
+              <mat-label>Enter your comment</mat-label>
+              <textarea
+                matInput
+                id="addPostText"
+                formControlName="postText"
+              ></textarea>
+            </mat-form-field>
+            <div class="btnAddPost">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                mat-button
+                [disabled]="!postForm.valid"
+              >
+                Add
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                mat-button
+                (click)="closeBox()"
+              >
+                Delete
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+</div>

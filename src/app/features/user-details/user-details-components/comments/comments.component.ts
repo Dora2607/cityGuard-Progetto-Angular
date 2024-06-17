@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Comments } from '../../../../models/comments.model';
 import { Subscription } from 'rxjs';
 import { CommentsService } from '../../../../services/comments.service';
@@ -17,7 +17,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
   isCommentBoxLoading = false;
   isBoxLoadingSubscription!: Subscription;
 
-  constructor(private commentsService: CommentsService) {}
+  constructor(private commentsService: CommentsService, private cdr: ChangeDetectorRef
+    
+  ) {}
 
   ngOnInit(): void {
     this.comments = this.commentsService.getComments(this.postId);
@@ -25,13 +27,15 @@ export class CommentsComponent implements OnInit, OnDestroy {
       this.commentsService.fetchComments(this.postId);
     }
     this.commentsSubscription = this.commentsService.commentsChanged.subscribe(
-      (comments: { [postId: number]: Comments[] }) => {
+      (comments: Record<number, Comments[]>) => {
         this.comments = comments[this.postId] || [];
+        // this.cdr.detectChanges();
       },
     );
     this.isBoxLoadingSubscription = this.commentsService.isCommentsBoxLoading.subscribe(
       (isLoading:boolean)=>{
         this.isCommentBoxLoading = isLoading;
+        this.cdr.detectChanges();
       }
     )
   }

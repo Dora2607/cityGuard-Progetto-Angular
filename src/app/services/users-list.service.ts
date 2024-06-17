@@ -7,24 +7,22 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UsersListService {
 
-  private allUsers: Array<Users> = [];
-  private displayedUsers: Array<Users> = [];
-  isFirstVisit:boolean = true;
+  private allUsers: Users[] = [];
+  private displayedUsers: Users[] = [];
+  isFirstVisit = true;
 
-  allUsersChanged = new BehaviorSubject<Array<Users>>([]);
-  displayedUsersChanged = new BehaviorSubject<Array<Users>>([]);
+  allUsersChanged = new BehaviorSubject<Users[]>([]);
+  displayedUsersChanged = new BehaviorSubject<Users[]>([]);
 
   isLoading = new BehaviorSubject<boolean>(false);
 
-  constructor() { }
-
-  setAllUsers(users: Array<Users>) {
+  setAllUsers(users: Users[]) {
     this.allUsers = users;
     this.allUsersChanged.next(this.allUsers.slice());
     this.setDisplayedUsers(users);
   }
 
-  setDisplayedUsers(displayedUsers: Array<Users>) {
+  setDisplayedUsers(displayedUsers: Users[]) {
     this.displayedUsers = displayedUsers;
     this.displayedUsersChanged.next(this.displayedUsers.slice());
   }

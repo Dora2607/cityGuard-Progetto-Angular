@@ -1,13 +1,8 @@
-import { Component} from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-users-management',
   templateUrl: './users-management.component.html',
   styleUrl: './users-management.component.scss',
 })
-export class UsersManagementComponent {
-
-}
+export class UsersManagementComponent {}

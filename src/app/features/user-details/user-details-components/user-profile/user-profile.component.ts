@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Users } from '../../../../models/users.model';
-import { LoggedUserService } from '../../../../services/logged-user.service';
 import { Subscription } from 'rxjs';
 import { UserProfileService } from '../../../../services/user-profile.service';
 import { ApiService } from '../../../../services/api.service';
@@ -17,15 +16,14 @@ import { fadeInOutAnimation } from '../../../../shared/Animations/fadeInOut-anim
 export class UserProfileComponent implements OnInit, OnDestroy {
   userId!: string;
   userProfile!: Users;
-  randomDescription: string = '';
+  randomDescription = '';
   userSubscription!: Subscription;
   numPostSubscription!: Subscription;
-  postNumber: number = 0;
-  todos: Array<Todos> = [];
+  postNumber = 0;
+  todos: Todos[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private loggedUserService: LoggedUserService,
     private userProfileService: UserProfileService,
     private apiService: ApiService,
   ) {}
@@ -51,7 +49,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   updatedTodos(id: number) {
-    this.apiService.getTodos(id).subscribe((todos: Array<Todos>) => {
+    this.apiService.getTodos(id).subscribe((todos: Todos[]) => {
       this.todos = todos;
     });
   }

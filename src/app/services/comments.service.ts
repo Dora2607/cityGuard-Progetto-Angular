@@ -7,8 +7,8 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class CommentsService {
-  comments: { [postId: number]: Comments[] } = {};
-  commentsChanged = new Subject<{ [postId: number]: Comments[] }>();
+  comments: Record<number, Comments[]> = {};
+  commentsChanged = new Subject<Record<number, Comments[]>>();
   isCommentsBoxLoading = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {}

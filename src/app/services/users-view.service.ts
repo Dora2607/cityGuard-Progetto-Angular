@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
 import { UsersListService } from './users-list.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,8 @@ export class UsersViewService {
   constructor(private usersListService: UsersListService) {}
 
   updateStatus(newStatus: string) {
-    let users = this.usersListService.getDisplayedUsers();
-    let updatedUsers =
+    const users = this.usersListService.getDisplayedUsers();
+    const updatedUsers =
       newStatus === 'all'
         ? [...users]
         : users.filter((user) => user.status === newStatus);
@@ -20,7 +20,7 @@ export class UsersViewService {
   }
 
   updateUsersCount(count: number) {
-    let users = this.usersListService.getDisplayedUsers();
+    const users = this.usersListService.getDisplayedUsers();
     this.usersListService.setDisplayedUsers(users.slice(0, count));
   }
 }

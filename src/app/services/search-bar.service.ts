@@ -11,6 +11,4 @@ export class SearchBarService {
   show() {
     this._show.next();
   }
-
-  constructor() {}
 }

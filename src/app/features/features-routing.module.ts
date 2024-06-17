@@ -10,6 +10,12 @@ const routes: Routes = [
       import('./users-management/users-management.module').then((m) => m.UsersManagementModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'postsOverview',
+    loadChildren: () => 
+      import('./posts-overview/posts-overview.module').then((m) => m.PostsOverviewModule),
+    canActivate: [AuthGuard],
+  }
 
 ];
 

@@ -4,7 +4,7 @@ import { Users, newUser } from '../models/users.model';
 import { TOKEN } from '../token';
 import { Observable } from 'rxjs';
 import { Todos } from '../models/todos.model';
-import { Posts } from '../models/posts.model';
+import { Posts, newPosts } from '../models/posts.model';
 import { Comments, newComments } from '../models/comments.model';
 
 const USERS_URL = 'https://gorest.co.in/public/v2/users?page=1&per_page=30';
@@ -24,8 +24,8 @@ export class ApiService {
     });
   }
 
-  getUsers(): Observable<Array<Users>> {
-    return this.httpClient.get<Array<Users>>(USERS_URL);
+  getUsers(): Observable<Users[]> {
+    return this.httpClient.get<Users[]>(USERS_URL);
   }
 
   deleteUser(userId: number) {
@@ -42,20 +42,16 @@ export class ApiService {
     });
   }
 
-  getTodos(userId: number): Observable<Array<Todos>> {
-    return this.httpClient.get<Array<Todos>>(
-      `${USERS_URL_SHORT}/${userId}/todos`,
-    );
+  getTodos(userId: number): Observable<Todos[]> {
+    return this.httpClient.get<Todos[]>(`${USERS_URL_SHORT}/${userId}/todos`);
   }
 
-  getPosts(userId: number): Observable<Array<Posts>> {
-    return this.httpClient.get<Array<Posts>>(
-      `${USERS_URL_SHORT}/${userId}/posts`,
-    );
+  getPosts(userId: number): Observable<Posts[]> {
+    return this.httpClient.get<Posts[]>(`${USERS_URL_SHORT}/${userId}/posts`);
   }
 
-  getComments(postId: number): Observable<Array<Comments>> {
-    return this.httpClient.get<Array<Comments>>(
+  getComments(postId: number): Observable<Comments[]> {
+    return this.httpClient.get<Comments[]>(
       `${POSTS_URL_SHORT}/${postId}/comments`,
     );
   }
@@ -69,6 +65,11 @@ export class ApiService {
     );
   }
 
-
-
+  
+  addPosts(userId: number, post: newPosts) {
+    const token = localStorage.getItem('token');
+    return this.httpClient.post(`${USERS_URL_SHORT}/${userId}/posts`, post, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }

@@ -21,7 +21,7 @@ export class UserProfileService {
 
   getUser(id: number | string) {
     return this.getUsers().pipe(
-      map((users: Array<Users>) => users.find((user) => user.id === +id)!),
+      map((users: Users[]) => users.find((user) => user.id === +id)!),
     );
   }
 

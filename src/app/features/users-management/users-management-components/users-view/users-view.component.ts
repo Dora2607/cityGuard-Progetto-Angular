@@ -12,7 +12,7 @@ import { fadeInOutAnimation } from '../../../../shared/Animations/fadeInOut-anim
 export class UsersViewComponent  {
   status = 'All';
   usersShowCount = 35;
-  isDeleteBtnClicked: boolean = false;
+  isDeleteBtnClicked = false;
    
 
   constructor(

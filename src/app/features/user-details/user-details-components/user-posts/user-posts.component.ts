@@ -20,11 +20,11 @@ import { CommentsService } from '../../../../services/comments.service';
 export class UserPostsComponent implements OnInit, OnDestroy {
   userId!: string;
   loggedUser!: Users;
-  posted: Array<Posts> = [];
+  posted: Posts[] = [];
   userProfile!: Users;
-  isEmptyPostsArr: boolean = false; // valutare come inserire a meglio questa variabile
-  isComponentVisible: { [id: number]: boolean } = {};
-  addCommentBox: { [id: number]: boolean } = {};
+  isEmptyPostsArr = false; // valutare come inserire a meglio questa variabile
+  isComponentVisible: Record<number, boolean> = {};
+  addCommentBox: Record<number, boolean> = {};
   commentForm!: FormGroup;
   userSubscription!: Subscription;
 
@@ -54,7 +54,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
 
   updatedPosts(id: number) {
     if (id !== this.loggedUser.id) {
-      this.apiService.getPosts(id).subscribe((posts: Array<Posts>) => {
+      this.apiService.getPosts(id).subscribe((posts: Posts[]) => {
         this.posted = posts;
         this.lengthPosts(this.posted);
       });
@@ -65,7 +65,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     }
   }
 
-  lengthPosts(posts: Array<Posts>) {
+  lengthPosts(posts: Posts[]) {
     if (posts.length != 0) {
       this.isEmptyPostsArr = false;
     } else {
@@ -99,6 +99,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
 
     this.apiService
       .addComments(id, this.addNewComment)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .subscribe((comment: any) => {
         alert('Comment added successfully');
         const newComments = [...this.commentsService.getComments(id), comment];

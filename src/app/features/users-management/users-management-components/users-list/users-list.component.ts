@@ -5,35 +5,30 @@ import { UsersListService } from '../../../../services/users-list.service';
 import { ApiService } from '../../../../services/api.service';
 import { Subscription } from 'rxjs';
 import { UsersViewService } from '../../../../services/users-view.service';
-import { slideInOutAnimation } from '../../../../shared/Animations/slideInOut-animation';
 import { listAnimation } from '../../../../shared/Animations/list-animation';
-
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
-  animations: [listAnimation]
+  animations: [listAnimation],
 })
 export class UsersListComponent implements OnInit, OnDestroy {
   loggedUser!: Users;
-  displayedUsers: Array<Users> = [];
-  usersSubscription: Subscription | undefined;
-  isdeleteBtnClicked: boolean = false;
+  displayedUsers: Users[] = [];
+  usersSubscription!: Subscription;
+  isdeleteBtnClicked = false;
   isLoading = false;
-  isLoadingSubscription: Subscription | undefined;
-
+  isLoadingSubscription!: Subscription;
 
   constructor(
     private loggedUserService: LoggedUserService,
     private usersListService: UsersListService,
     private apiService: ApiService,
     private usersViewService: UsersViewService,
-    
   ) {}
 
   ngOnInit(): void {
-    
     this.loggedUser = this.loggedUserService.initializePersonalProfile();
     if (this.usersListService.isFirstVisit) {
       this.getAllUser();
@@ -44,7 +39,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
     this.usersSubscription =
       this.usersListService.displayedUsersChanged.subscribe(
-        (users: Array<Users>) => {
+        (users: Users[]) => {
           this.displayedUsers = users;
         },
       );
@@ -95,11 +90,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.usersSubscription) {
-      this.usersSubscription.unsubscribe();
-    }
-    if (this.isLoadingSubscription) {
-      this.isLoadingSubscription.unsubscribe();
-    }
+    this.usersSubscription.unsubscribe();
+    this.isLoadingSubscription.unsubscribe();
   }
 }

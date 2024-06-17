@@ -18,7 +18,9 @@ export class SearchBarComponent {
     });
   }
 
-  submit(){}
+  submit(){
+    console.log('ciao sono in searchbar component')
+  }
 
   endSearch(){
     this.showSearchBar = false;
