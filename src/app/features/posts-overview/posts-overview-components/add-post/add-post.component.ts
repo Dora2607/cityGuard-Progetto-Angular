@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Users } from '../../../../models/users.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { newPosts } from '../../../../models/posts.model';
 import { ApiService } from '../../../../services/api.service';
 import { LoggedUserService } from '../../../../services/logged-user.service';
@@ -9,7 +9,7 @@ import { PostsService } from '../../../../services/posts.service';
 @Component({
   selector: 'app-add-post',
   templateUrl: './add-post.component.html',
-  styleUrl: './add-post.component.scss'
+  styleUrl: './add-post.component.scss',
 })
 export class AddPostComponent implements OnInit {
   loggedInUser!: Users;
@@ -26,13 +26,13 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedInUser = this.loggedUserService.initializePersonalProfile();
-    this.initializeCommentForm();
+    this.initializePostForm();
   }
 
-  initializeCommentForm() {
+  initializePostForm() {
     this.postForm = new FormGroup({
-      postTitle: new FormControl(''),
-      postText: new FormControl(''),
+      postTitle: new FormControl('', Validators.required),
+      postText: new FormControl('', Validators.required),
     });
   }
 
@@ -52,16 +52,21 @@ export class AddPostComponent implements OnInit {
       (post: any) => {
         alert('Post added successfully');
         this.postsService.addPersonalPost(post);
-        this.postsService.addPost(id);
+        this.postForm.reset();
+
+        this.postForm.get('postTitle')?.markAsUntouched();
+        this.postForm.get('postText')?.markAsUntouched();
+
+        this.closeBox();
       },
     );
-  }
+  } 
 
   showAddPostBox() {
     this.toggleVisibility = !this.toggleVisibility;
     this.toggleIcon = !this.toggleIcon;
   }
-  closeBox(){
+  closeBox() {
     this.toggleVisibility = !this.toggleVisibility;
     this.toggleIcon = !this.toggleIcon;
   }

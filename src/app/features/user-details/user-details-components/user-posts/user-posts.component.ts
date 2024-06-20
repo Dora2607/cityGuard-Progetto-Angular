@@ -8,8 +8,9 @@ import { UserProfileService } from '../../../../services/user-profile.service';
 import { Subscription } from 'rxjs';
 import { fadeInOutAnimation } from '../../../../shared/Animations/fadeInOut-animation';
 import { newComments } from '../../../../models/comments.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommentsService } from '../../../../services/comments.service';
+import { PostsService } from '../../../../services/posts.service';
 
 @Component({
   selector: 'app-user-posts',
@@ -34,12 +35,8 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private userProfileService: UserProfileService,
     private commentsService: CommentsService,
-    private formBuilder: FormBuilder,
-  ) {
-    this.commentForm = this.formBuilder.group({
-      commentText: '',
-    });
-  }
+    private postsService: PostsService,
+  ) {}
 
   ngOnInit(): void {
     this.loggedUser = this.loggedUserService.initializePersonalProfile();
@@ -50,6 +47,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
       },
     );
     this.updatedPosts(+this.userId);
+    this.initializeCommentForm();
   }
 
   updatedPosts(id: number) {
@@ -59,9 +57,10 @@ export class UserPostsComponent implements OnInit, OnDestroy {
         this.lengthPosts(this.posted);
       });
     } else {
-      //const personalPost = this.postsService.getPersonalPosts(id);
-      console.log('sei nel profilo personale');
-      this.lengthPosts(this.posted);
+      this.postsService.personalPostChanged.subscribe((posts: Posts[]) => {
+        this.posted = posts;
+        this.lengthPosts(this.posted);
+      });
     }
   }
 
@@ -72,6 +71,12 @@ export class UserPostsComponent implements OnInit, OnDestroy {
       this.isEmptyPostsArr = true;
     }
     this.userProfileService.emitUpdateNumPost(posts.length);
+  }
+
+  initializeCommentForm() {
+    this.commentForm = new FormGroup({
+      commentText: new FormControl('', Validators.required),
+    });
   }
 
   //toggle the visibility of the comments and add comment box for a specific post ID
@@ -105,6 +110,13 @@ export class UserPostsComponent implements OnInit, OnDestroy {
         const newComments = [...this.commentsService.getComments(id), comment];
         this.commentsService.setComments(id, newComments);
         this.commentForm.reset({ commentText: '' });
+        this.commentForm.get('commentText')?.markAsUntouched();
+        if (this.isComponentVisible[id]) {
+          this.toggleAddComments(id);
+        } else {
+          this.toggleAddComments(id);
+          this.toggleComments(id);
+        }
       });
   }
   goBack(id: number) {

@@ -29,4 +29,5 @@ export class CommentsService {
   getComments(postId: number): Comments[] {
     return this.comments[postId] || [];
   }
+  
 }

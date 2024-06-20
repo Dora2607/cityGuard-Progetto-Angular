@@ -28,8 +28,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     }
     this.commentsSubscription = this.commentsService.commentsChanged.subscribe(
       (comments: Record<number, Comments[]>) => {
-        this.comments = comments[this.postId] || [];
-        // this.cdr.detectChanges();
+        this.comments = comments[this.postId] || []; 
       },
     );
     this.isBoxLoadingSubscription = this.commentsService.isCommentsBoxLoading.subscribe(

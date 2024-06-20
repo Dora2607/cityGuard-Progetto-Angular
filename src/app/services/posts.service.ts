@@ -13,8 +13,14 @@ export class PostsService {
 
   allPostsChanged = new BehaviorSubject<Posts[]>([]);
   displayedPostsChanged = new BehaviorSubject<Posts[]>([]);
-  
+
   isFirstVisit = true;
+
+  private personalPosts: Posts[] = [];
+  personalPostChanged = new BehaviorSubject<Posts[]>([]);
+
+  // filteredPostsArr: Posts[] = [];
+  // filteredPosts = new BehaviorSubject<Posts[]>([]);
 
   constructor(private apiService: ApiService) {}
 
@@ -22,7 +28,7 @@ export class PostsService {
     this.allPosts = posts;
     this.allPostsChanged.next(this.allPosts.slice());
     this.setDisplayedPosts(this.allPosts);
-    
+
   }
 
   setDisplayedPosts(displayedPosts: Posts[]) {
@@ -45,6 +51,37 @@ export class PostsService {
   }
 
   addPersonalPost(post: Posts) {
-    return post;
+    this.allPosts.unshift(post);
+    this.displayedPostsChanged.next(this.allPosts.slice());
+    this.personalPosts.push(post)
+    this.personalPostChanged.next(this.personalPosts.slice())
   }
+
+  removePosts(id: number) {
+    this.allPosts = this.allPosts.filter((post) => post.user_id !== id);
+    this.displayedPosts = this.displayedPosts.filter(
+      (post) => post.user_id !== id,
+    );
+    this.allPostsChanged.next(this.allPosts.slice());
+    this.displayedPostsChanged.next(this.displayedPosts.slice());
+  }
+
+  searchPosts(searchTerm: string): Posts[] {
+    searchTerm = searchTerm.toLowerCase();
+    if (searchTerm.length <= 2) {
+      return this.allPosts.filter((post) =>
+        post.title.toLowerCase().startsWith(searchTerm),
+      );
+    } else {
+      return this.allPosts.filter((post) =>
+        post.title.toLowerCase().includes(searchTerm),
+      );
+    }
+  }
+
+  // setFilteredPosts(posts: Posts[]) {
+  //   this.filteredPostsArr = posts;
+  //   this.filteredPosts.next(this.filteredPostsArr.slice());
+  // }
+
 }

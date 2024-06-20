@@ -5,7 +5,7 @@ import { ApiService } from '../../../../services/api.service';
 import { Subscription } from 'rxjs';
 import { fadeInOutAnimation } from '../../../../shared/Animations/fadeInOut-animation';
 import { newComments } from '../../../../models/comments.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommentsService } from '../../../../services/comments.service';
 import { Posts } from '../../../../models/posts.model';
 import { UsersListService } from '../../../../services/users-list.service';
@@ -27,13 +27,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
   displayedPosts: Posts[] = [];
   userProfiles: Record<number, string> = {};
   postsSubscription!: Subscription;
-  
+
   isComponentVisible: Record<number, boolean> = {};
   addCommentBox: Record<number, boolean> = {};
   commentForm!: FormGroup;
   isLoading = false;
-  isLoadingSubscription!: Subscription
-
+  isLoadingSubscription!: Subscription;
 
   constructor(
     private loggedUserService: LoggedUserService,
@@ -42,31 +41,26 @@ export class PostsListComponent implements OnInit, OnDestroy {
     private postsService: PostsService,
     private apiService: ApiService,
     private commentsService: CommentsService,
-    private formBuilder: FormBuilder,
-  ) {
-    this.commentForm = this.formBuilder.group({
-      commentText: '',
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loggedUser = this.loggedUserService.initializePersonalProfile();
-
     this.users = this.usersListService.getDisplayedUsers();
     this.usersId = this.userProfileService.getIds(this.users);
 
-    if(this.postsService.isFirstVisit){
+    if (this.postsService.isFirstVisit) {
       this.getAllPosts(this.usersId);
-      this.postsService.isFirstVisit=false;
-    }else{
+      this.postsService.isFirstVisit = false;
+    } else {
       this.posts = this.postsService.getDispayedPosts();
     }
 
     this.postsSubscription = this.postsService.displayedPostsChanged.subscribe(
       (posts: Posts[]) => {
         this.posts = posts;
-      }
-    )
+        this.userProfiles = this.initializeUsersProfiles(this.posts);
+      },
+    );
 
     this.isLoadingSubscription = this.usersListService.isLoading.subscribe(
       (isLoading: boolean) => {
@@ -74,26 +68,14 @@ export class PostsListComponent implements OnInit, OnDestroy {
       },
     );
 
-    // this.displayedPosts = this.postsService.getDispayedPosts();
-
-    // if (this.displayedPosts.length === 0) {
-    //   this.postsService.getAllPosts(this.usersId).subscribe((posts) => {
-    //     this.posts = posts;   
-    //     this.userProfiles = this.initializeUsersProfiles(this.posts);
-    //   });
-    // } else {
-    //   this.posts = [...this.displayedPosts];
-    //   this.userProfiles = this.initializeUsersProfiles(this.posts);
-    // }
-
-    
+    this.initializeCommentForm();
   }
 
-  getAllPosts(usersId: number[]){
+  getAllPosts(usersId: number[]) {
     this.usersListService.isLoading.next(true);
     this.postsService.getAllPosts(usersId).subscribe((posts) => {
-      this.postsService.setAllPosts(posts)
-      this.postsService.setDisplayedPosts([...posts])
+      this.postsService.setAllPosts(posts);
+      this.postsService.setDisplayedPosts([...posts]);
       this.userProfiles = this.initializeUsersProfiles(this.posts);
       this.usersListService.isLoading.next(false);
     });
@@ -110,9 +92,11 @@ export class PostsListComponent implements OnInit, OnDestroy {
     return userProfiles;
   }
 
-
-
-
+  initializeCommentForm() {
+    this.commentForm = new FormGroup({
+      commentText: new FormControl('', Validators.required),
+    });
+  }
 
   //toggle the visibility of the comments and add comment box for a specific post ID
   toggleComments(id: number) {
@@ -145,6 +129,13 @@ export class PostsListComponent implements OnInit, OnDestroy {
         const newComments = [...this.commentsService.getComments(id), comment];
         this.commentsService.setComments(id, newComments);
         this.commentForm.reset({ commentText: '' });
+        this.commentForm.get('commentText')?.markAsUntouched();
+        if (this.isComponentVisible[id]) {
+          this.toggleAddComments(id);
+        } else {
+          this.toggleAddComments(id);
+          this.toggleComments(id);
+        }
       });
   }
   goBack(id: number) {
