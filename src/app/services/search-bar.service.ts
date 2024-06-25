@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, Router, Event } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, filter } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

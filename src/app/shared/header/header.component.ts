@@ -3,9 +3,6 @@ import { LogoService } from '../../services/logo.service';
 import { Store } from '@ngrx/store';
 import { logout } from '../../state/auth/auth.actions';
 import { SearchBarService } from '../../services/search-bar.service';
-import { UsersListService } from '../../services/users-list.service';
-import { PostsService } from '../../services/posts.service';
-import { LoggedUserService } from '../../services/logged-user.service';
 
 @Component({
   selector: 'app-header',
