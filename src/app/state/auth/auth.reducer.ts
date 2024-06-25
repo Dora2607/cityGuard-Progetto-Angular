@@ -1,4 +1,3 @@
- 
 import {
   createFeatureSelector,
   createReducer,
@@ -14,7 +13,6 @@ import {
 } from './auth.actions';
 import { TOKEN } from '../../token';
 import { Users } from '../../models/users.model';
-
 
 export interface State {
   user: Users | null;
@@ -46,7 +44,6 @@ export const authReducer = createReducer<State>(
       user: null,
       token: null,
       loginSuccessful: false,
-      
     };
   }),
   on(registerSuccess, (state: State, { user }): State => {
@@ -76,4 +73,3 @@ export const selectLoggedUser = createSelector(
   selectAuthState,
   (auth) => auth.user,
 );
-

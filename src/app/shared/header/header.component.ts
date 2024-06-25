@@ -3,22 +3,21 @@ import { LogoService } from '../../services/logo.service';
 import { Store } from '@ngrx/store';
 import { logout } from '../../state/auth/auth.actions';
 import { SearchBarService } from '../../services/search-bar.service';
-
+import { UsersListService } from '../../services/users-list.service';
+import { PostsService } from '../../services/posts.service';
+import { LoggedUserService } from '../../services/logged-user.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  
 })
 export class HeaderComponent {
-
   constructor(
     private logoService: LogoService,
     private store: Store,
-    private searchBarService:SearchBarService,
-
-  ){
+    private searchBarService: SearchBarService,
+  ) {
     this.logoService.isToolbar = true;
   }
 
@@ -26,8 +25,7 @@ export class HeaderComponent {
     this.store.dispatch(logout());
   }
 
-  toggleSearchBar(){
+  toggleSearchBar() {
     this.searchBarService.show();
   }
-
 }

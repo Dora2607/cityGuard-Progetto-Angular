@@ -7,7 +7,6 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class PostsService {
-
   private allPosts: Posts[] = [];
   private displayedPosts: Posts[] = [];
 
@@ -19,16 +18,12 @@ export class PostsService {
   private personalPosts: Posts[] = [];
   personalPostChanged = new BehaviorSubject<Posts[]>([]);
 
-  // filteredPostsArr: Posts[] = [];
-  // filteredPosts = new BehaviorSubject<Posts[]>([]);
-
   constructor(private apiService: ApiService) {}
 
   setAllPosts(posts: Posts[]) {
     this.allPosts = posts;
     this.allPostsChanged.next(this.allPosts.slice());
     this.setDisplayedPosts(this.allPosts);
-
   }
 
   setDisplayedPosts(displayedPosts: Posts[]) {
@@ -53,8 +48,8 @@ export class PostsService {
   addPersonalPost(post: Posts) {
     this.allPosts.unshift(post);
     this.displayedPostsChanged.next(this.allPosts.slice());
-    this.personalPosts.push(post)
-    this.personalPostChanged.next(this.personalPosts.slice())
+    this.personalPosts.push(post);
+    this.personalPostChanged.next(this.personalPosts.slice());
   }
 
   removePosts(id: number) {
@@ -65,23 +60,4 @@ export class PostsService {
     this.allPostsChanged.next(this.allPosts.slice());
     this.displayedPostsChanged.next(this.displayedPosts.slice());
   }
-
-  searchPosts(searchTerm: string): Posts[] {
-    searchTerm = searchTerm.toLowerCase();
-    if (searchTerm.length <= 2) {
-      return this.allPosts.filter((post) =>
-        post.title.toLowerCase().startsWith(searchTerm),
-      );
-    } else {
-      return this.allPosts.filter((post) =>
-        post.title.toLowerCase().includes(searchTerm),
-      );
-    }
-  }
-
-  // setFilteredPosts(posts: Posts[]) {
-  //   this.filteredPostsArr = posts;
-  //   this.filteredPosts.next(this.filteredPostsArr.slice());
-  // }
-
 }

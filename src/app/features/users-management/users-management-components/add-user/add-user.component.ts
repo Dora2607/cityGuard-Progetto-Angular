@@ -8,11 +8,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.scss'
+  styleUrl: './add-user.component.scss',
 })
-export class AddUserComponent implements OnInit{
-
-  public addUserForm!: FormGroup; 
+export class AddUserComponent implements OnInit {
+  public addUserForm!: FormGroup;
 
   addNewUser: newUser = {
     name: '',
@@ -23,10 +22,9 @@ export class AddUserComponent implements OnInit{
 
   constructor(
     private apiService: ApiService,
-    private usersListService:UsersListService,
+    private usersListService: UsersListService,
     private router: Router,
-
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.addUserForm = new FormGroup({
@@ -35,7 +33,6 @@ export class AddUserComponent implements OnInit{
       gender: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
     });
-
   }
 
   fullName() {
@@ -57,7 +54,7 @@ export class AddUserComponent implements OnInit{
       gender: this.addUserForm.value.gender,
       status: this.randomStatus(),
     };
-  
+
     this.apiService.addUser(this.addNewUser).subscribe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (response: any) => {
@@ -66,6 +63,13 @@ export class AddUserComponent implements OnInit{
         this.usersListService.addUser(newUser);
         this.router.navigate(['features/usersManagement']);
       },
+      (error) => {
+        if (error.status === 422) {
+          alert(
+            'An user with this email already exists. Please choose a different email.',
+          );
+        }
+      },
     );
   }
 
@@ -73,6 +77,4 @@ export class AddUserComponent implements OnInit{
     event.preventDefault();
     this.router.navigate(['features/usersManagement']);
   }
-
-
 }

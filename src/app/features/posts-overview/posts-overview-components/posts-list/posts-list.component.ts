@@ -11,6 +11,7 @@ import { Posts } from '../../../../models/posts.model';
 import { UsersListService } from '../../../../services/users-list.service';
 import { UserProfileService } from '../../../../services/user-profile.service';
 import { PostsService } from '../../../../services/posts.service';
+import { SearchBarService } from '../../../../services/search-bar.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -33,6 +34,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   commentForm!: FormGroup;
   isLoading = false;
   isLoadingSubscription!: Subscription;
+  searchPostsList!: Subscription;
 
   constructor(
     private loggedUserService: LoggedUserService,
@@ -41,6 +43,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     private postsService: PostsService,
     private apiService: ApiService,
     private commentsService: CommentsService,
+    private searchBarService: SearchBarService,
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +72,14 @@ export class PostsListComponent implements OnInit, OnDestroy {
     );
 
     this.initializeCommentForm();
+
+    this.searchBarService.searchTerm.subscribe((term: string) => {
+      const allPosts = this.postsService.getDispayedPosts();
+      this.displayedPosts = allPosts.filter((post: Posts) =>
+        post.title.toLowerCase().includes(term),
+      );
+      this.postsService.setDisplayedPosts(this.displayedPosts);
+    });
   }
 
   getAllPosts(usersId: number[]) {
@@ -143,6 +154,11 @@ export class PostsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.postsSubscription.unsubscribe();
+    if (this.postsSubscription) {
+      this.postsSubscription.unsubscribe();
+    }
+    if (this.searchPostsList) {
+      this.searchPostsList.unsubscribe();
+    }
   }
 }

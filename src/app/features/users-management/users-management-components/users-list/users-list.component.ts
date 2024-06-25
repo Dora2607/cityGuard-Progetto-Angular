@@ -6,6 +6,7 @@ import { ApiService } from '../../../../services/api.service';
 import { Subscription } from 'rxjs';
 import { UsersViewService } from '../../../../services/users-view.service';
 import { listAnimation } from '../../../../shared/Animations/list-animation';
+import { SearchBarService } from '../../../../services/search-bar.service';
 
 @Component({
   selector: 'app-users-list',
@@ -20,12 +21,14 @@ export class UsersListComponent implements OnInit, OnDestroy {
   isdeleteBtnClicked = false;
   isLoading = false;
   isLoadingSubscription!: Subscription;
+  searchUsersSubscription!: Subscription;
 
   constructor(
     private loggedUserService: LoggedUserService,
     private usersListService: UsersListService,
     private apiService: ApiService,
     private usersViewService: UsersViewService,
+    private searchBarService: SearchBarService,
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +56,18 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.isLoadingSubscription = this.usersListService.isLoading.subscribe(
       (isLoading: boolean) => {
         this.isLoading = isLoading;
+      },
+    );
+
+    this.searchUsersSubscription = this.searchBarService.searchTerm.subscribe(
+      (term: string) => {
+        const allUsers = this.usersListService.getDisplayedUsers();
+        this.displayedUsers = allUsers.filter(
+          (user) =>
+            user.name.toLowerCase().includes(term) ||
+            user.email.toLowerCase().includes(term),
+        );
+        this.usersListService.setDisplayedUsers(this.displayedUsers);
       },
     );
   }
@@ -90,7 +105,15 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.usersSubscription.unsubscribe();
-    this.isLoadingSubscription.unsubscribe();
+    if (this.usersSubscription) {
+      this.usersSubscription.unsubscribe();
+    }
+    if (this.isLoadingSubscription) {
+      this.isLoadingSubscription.unsubscribe();
+    }
+    if(this.searchUsersSubscription){
+      this.searchUsersSubscription.unsubscribe();
+    }
+    
   }
 }

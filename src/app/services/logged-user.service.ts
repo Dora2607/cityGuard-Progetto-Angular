@@ -26,14 +26,4 @@ export class LoggedUserService {
     });
     return this.loggedUser;
   }
-
-  resetLoggedInUser(): void {
-    this.loggedUser = {
-      id: 0,
-      name: '',
-      email: '',
-      gender: '',
-      status: '',
-    };
-  }
 }
