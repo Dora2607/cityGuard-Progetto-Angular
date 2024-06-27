@@ -65,7 +65,6 @@ export class ApiService {
     );
   }
 
-  
   addPosts(userId: number, post: newPosts) {
     const token = localStorage.getItem('token');
     return this.httpClient.post(`${USERS_URL_SHORT}/${userId}/posts`, post, {
