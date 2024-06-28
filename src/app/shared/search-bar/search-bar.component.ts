@@ -21,8 +21,6 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private searchBarService: SearchBarService,
-    private postsService: PostsService,
-    private usersListService: UsersListService,
   ) {
     this.searchBarService.show$.subscribe(() => {
       this.showSearchBar = true;

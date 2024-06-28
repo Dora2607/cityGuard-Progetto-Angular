@@ -73,9 +73,7 @@ describe('ApiService', () => {
       expect(user).toEqual(dummyUsers);
     });
 
-    const req = httpMock.expectOne(
-      `${USERS_URL}`,
-    );
+    const req = httpMock.expectOne(`${USERS_URL}`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyUsers);
   });
@@ -86,9 +84,7 @@ describe('ApiService', () => {
       expect(response).toBeNull();
     });
 
-    const req = httpMock.expectOne(
-      `${USERS_URL_SHORT}/${userId}`,
-    );
+    const req = httpMock.expectOne(`${USERS_URL_SHORT}/${userId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });
@@ -116,16 +112,17 @@ describe('ApiService', () => {
       {
         id: 55265,
         user_id: 6983651,
-        title: "Charisma territo tamen bibo tremo synagoga trado non inventore.",
+        title:
+          'Charisma territo tamen bibo tremo synagoga trado non inventore.',
         due_on: new Date('2024-07-16T00:00:00.000+05:30'),
-        status: "pending"
+        status: 'pending',
       },
       {
         id: 55243,
         user_id: 6983520,
-        title: "Error tenuis iure cohibeo rem vulpes thymbra dapifer.",
+        title: 'Error tenuis iure cohibeo rem vulpes thymbra dapifer.',
         due_on: new Date('2024-07-10T00:00:00.000+05:30'),
-        status: "completed"
+        status: 'completed',
       },
     ];
 
@@ -134,9 +131,7 @@ describe('ApiService', () => {
       expect(todos).toEqual(dummyTodos);
     });
 
-    const req = httpMock.expectOne(
-      `${USERS_URL_SHORT}/${userId}/todos`,
-    );
+    const req = httpMock.expectOne(`${USERS_URL_SHORT}/${userId}/todos`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyTodos);
   });
@@ -148,25 +143,23 @@ describe('ApiService', () => {
       {
         id: 137665,
         user_id: 6983651,
-        title: "Caste cotidie at ancilla qui.",
-        body: "Peior officia caelum. Agnosco placeat thymum. Bardus arca certe. Bestia tendo balbus. Patria iure vestrum. Dedecor vallum ustulo. Amor claro ratione. Verbera cohibeo deleo. Et itaque triginta. Terminatio cui ut. Quos usus voluptas. Constans adiuvo suppono. Somnus totam vinitor."
+        title: 'Caste cotidie at ancilla qui.',
+        body: 'Peior officia caelum. Agnosco placeat thymum. Bardus arca certe. Bestia tendo balbus. Patria iure vestrum. Dedecor vallum ustulo. Amor claro ratione. Verbera cohibeo deleo. Et itaque triginta. Terminatio cui ut. Quos usus voluptas. Constans adiuvo suppono. Somnus totam vinitor.',
       },
       {
         id: 137664,
         user_id: 6983651,
-        title: "Pectus turba cum soleo turpe dicta.",
-        body: "Fugiat coniuratio cruciamentum. Asper viridis nihil. Attollo pariatur tondeo. Patria accendo conservo. Cohors apparatus rerum. Aestus amiculum villa. Demo substantia placeat. Non defigo textus. Complectus provident unus. Vallum approbo vel."
+        title: 'Pectus turba cum soleo turpe dicta.',
+        body: 'Fugiat coniuratio cruciamentum. Asper viridis nihil. Attollo pariatur tondeo. Patria accendo conservo. Cohors apparatus rerum. Aestus amiculum villa. Demo substantia placeat. Non defigo textus. Complectus provident unus. Vallum approbo vel.',
       },
-    ]
+    ];
 
     service.getPosts(userId).subscribe((posts) => {
       expect(posts.length).toBe(dummyPosts.length);
       expect(posts).toEqual(dummyPosts);
     });
 
-    const req = httpMock.expectOne(
-      `${USERS_URL_SHORT}/${userId}/posts`,
-    );
+    const req = httpMock.expectOne(`${USERS_URL_SHORT}/${userId}/posts`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyPosts);
   });
@@ -178,27 +171,25 @@ describe('ApiService', () => {
       {
         id: 108218,
         post_id: 137662,
-        name: "Aasha Mehra",
-        email: "aasha_mehra@senger.test",
-        body: "Ad doloremque omnis. Exercitationem laboriosam quis."
+        name: 'Aasha Mehra',
+        email: 'aasha_mehra@senger.test',
+        body: 'Ad doloremque omnis. Exercitationem laboriosam quis.',
       },
       {
         id: 108217,
         post_id: 137662,
-        name: "Aasha Mehra",
-        email: "aasha_mehra@senger.test",
-        body: "Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt."
+        name: 'Aasha Mehra',
+        email: 'aasha_mehra@senger.test',
+        body: 'Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt.',
       },
-    ]
+    ];
 
     service.getComments(postId).subscribe((comments) => {
       expect(comments.length).toBe(dummyComments.length);
       expect(comments).toEqual(dummyComments);
     });
 
-    const req = httpMock.expectOne(
-      `${POSTS_URL_SHORT}/${postId}/comments`,
-    );
+    const req = httpMock.expectOne(`${POSTS_URL_SHORT}/${postId}/comments`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyComments);
   });
@@ -208,19 +199,19 @@ describe('ApiService', () => {
     const dummyNewComment: newComments = {
       name: 'Aasha Mehra',
       email: 'aasha_mehra@senger.test',
-      body: "Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt."
+      body: 'Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt.',
     };
     const dummyComment: Comments[] = [
       {
         id: 108217,
         post_id: 137662,
-        name: "Aasha Mehra",
-        email: "aasha_mehra@senger.test",
-        body: "Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt."
+        name: 'Aasha Mehra',
+        email: 'aasha_mehra@senger.test',
+        body: 'Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt.',
       },
-    ]
+    ];
 
-    service.addComments(postId,dummyNewComment).subscribe((comment) => {
+    service.addComments(postId, dummyNewComment).subscribe((comment) => {
       expect(comment).toEqual(dummyComment);
     });
 
@@ -232,27 +223,24 @@ describe('ApiService', () => {
   it('should added a new post', () => {
     const userId = 137662;
     const dummyNewPost: newPosts = {
-      name: 'Aasha Mehra',
-      email: 'aasha_mehra@senger.test',
-      body: "Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt."
+      title: 'Voluptatem sunt in',
+      body: 'Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt.',
     };
-    const dummyComment: Comments[] = [
+    const dummyPost: Posts[] = [
       {
-        id: 108217,
-        post_id: 137662,
-        name: "Aasha Mehra",
-        email: "aasha_mehra@senger.test",
-        body: "Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt."
+        id: 137664,
+        user_id: 6983651,
+        title: 'Voluptatem sunt in.',
+        body: 'Omnis qui sunt. Voluptatem sunt in. Et ea voluptas. Nostrum omnis deserunt.',
       },
-    ]
+    ];
 
-    service.addComments(userId,dummyNewComment).subscribe((comment) => {
-      expect(comment).toEqual(dummyComment);
+    service.addPosts(userId, dummyNewPost).subscribe((post) => {
+      expect(post).toEqual(dummyPost);
     });
 
     const req = httpMock.expectOne(`${USERS_URL_SHORT}/${userId}/posts`);
     expect(req.request.method).toBe('POST');
-    req.flush(dummyComment);
+    req.flush(dummyPost);
   });
-
 });

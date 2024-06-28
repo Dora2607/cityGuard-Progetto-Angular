@@ -10,6 +10,3 @@ export interface newPosts {
   body: string;
 }
 
-export interface ExtendedPosts extends Posts {
-  isNew?: boolean;
-}

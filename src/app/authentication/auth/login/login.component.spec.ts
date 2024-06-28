@@ -6,13 +6,9 @@ import { Store } from '@ngrx/store';
 import { SharedModule } from '../../../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let store: Store;
   let dispatchSpy: jasmine.Spy;
 
   beforeEach(async () => {
@@ -30,7 +26,6 @@ describe('LoginComponent', () => {
   
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(Store);
     dispatchSpy = storeSpy.dispatch; 
     fixture.detectChanges();
   });
