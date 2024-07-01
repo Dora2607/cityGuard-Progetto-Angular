@@ -75,6 +75,7 @@ La componente `HeaderComponent` è una parte essenziale dell’interfaccia utent
 Quando viene cliccata, il metodo toggleSearchBar() viene chiamato per mostrare o nascondere la barra di ricerca.
 
 #### SearchBarComponent
+
 La componente `SearchBarComponent` gestisce la funzionalità di ricerca nell’applicazione:
 
 Inizialmente, la barra di ricerca è nascosta (showSearchBar = false).
@@ -82,6 +83,15 @@ Quando l’utente fa clic sull’icona di ricerca, la barra di ricerca viene mos
 L’utente può inserire un termine di ricerca e fare clic su “Submit”.
 Il servizio SearchBarService riceve il termine di ricerca e lo elabora.
 Quando l’utente termina la ricerca, la barra di ricerca viene nascosta.
+
+#### UsersViewComponent
+
+La componente `UsersViewComponent` è un componente Angular che fornisce una vista per gli utenti. Questo componente ha tre metodi principali: `onStatusUpdate`, `onUsersUpdated` e `deleteButton`.
+
+1. `onStatusUpdate(newStatus: string)`: Questo metodo viene chiamato quando lo stato degli utenti viene aggiornato. Prende come parametro il nuovo stato e aggiorna lo stato corrente nel servizio UsersViewService. Inoltre, aggiorna la proprietà status del componente in base al nuovo stato.
+2. `onUsersUpdated(count: number)`: Questo metodo viene chiamato quando il numero di utenti da mostrare viene aggiornato. Prende come parametro il nuovo conteggio e aggiorna il conteggio degli utenti nel servizio UsersViewService. Inoltre, aggiorna la proprietà usersShowCount del componente con il nuovo conteggio.
+3. `deleteButton()`: Questo metodo viene chiamato quando il pulsante di eliminazione viene premuto. Inverte il valore della proprietà isDeleteBtnClicked del componente e invia il nuovo valore al servizio `UsersViewService`.
+Questo componente dipende dal servizio UsersViewService, che fornisce metodi per aggiornare lo stato e il conteggio degli utenti, e per gestire l’evento del pulsante di eliminazione.
 
 ### I servizi 
 
@@ -110,14 +120,26 @@ Vediamo i metodi:
 2. `initializePersonalProfile()`: Questo metodo inizializza il profilo personale dell’utente loggato. Utilizza il metodo getLoggedInUser() per ottenere l’utente e lo memorizza nella proprietà loggedUser. Restituisce l’oggetto utente inizializzato.
 
 #### SearchBarService
+
 Il servizio `SearchBarService` gestisce la comunicazione tra la componente di ricerca e altre parti dell’applicazione:
 
 - Espone un observable show$ per notificare quando la barra di ricerca deve essere mostrata.
 - Espone un observable searchTerm per fornire il termine di ricerca inserito dall’utente.
 - I metodi `show()` e `search(term: string)` vengono utilizzati per attivare la visualizzazione della barra di ricerca e per inviare il termine di ricerca.
 
+#### UsersViewService
+
+Il servizio `UsersViewService` è un servizio Angular che fornisce metodi per gestire lo stato e gli eventi relativi alla visualizzazione degli utenti. Questo servizio ha tre metodi principali:
+
+1. `updateStatus(newStatus: string)`: Questo metodo viene chiamato quando lo stato degli utenti viene aggiornato. Prende come parametro il nuovo stato e aggiorna lo stato corrente nel servizio UsersListService. Inoltre, filtra gli utenti in base al nuovo stato.
+2. `updateUsersCount(count: number)`: Questo metodo viene chiamato quando il numero di utenti da mostrare viene aggiornato. Prende come parametro il nuovo conteggio e aggiorna il conteggio degli utenti nel servizio UsersListService. Inoltre, riduce il numero di utenti visualizzati in base al nuovo conteggio.
+3. `deleteButtonClicked`: Questo è un Subject di RxJS che emette un evento ogni volta che il pulsante di eliminazione viene premuto.
+Questo servizio dipende dal servizio `UsersListService`, che fornisce metodi per ottenere e impostare gli utenti visualizzati.
+
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Per generare un report sulla coverage del codice, puoi utilizzare il comando `ng test --code-coverage`. Questo genererà una directory `coverage` nel tuo progetto con un report HTML sulla coverage del tuo codice.
 
 

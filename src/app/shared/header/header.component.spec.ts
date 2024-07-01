@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '../shared.module';
 import { LogoService } from '../../services/logo.service';
 import { SearchBarService } from '../../services/search-bar.service';
-import { HttpTestingController } from '@angular/common/http/testing';
+
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 
 
 
@@ -13,11 +14,13 @@ describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let dispatchSpy: jasmine.Spy;
-  
   let searchBarService: SearchBarService;
+  let showSpy: jasmine.Spy
 
-  beforeEach(async () => {
+   beforeEach(async () => {
     const storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
+    searchBarService = new SearchBarService();
+    showSpy = spyOn(searchBarService, 'show');
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       imports: [SharedModule, BrowserAnimationsModule],
@@ -27,15 +30,25 @@ describe('HeaderComponent', () => {
           provide: Store,
           useValue: storeSpy,
         },
+        {
+          provide: SearchBarService,
+          useValue: searchBarService,
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({ id: '1' })
+            }
+          }
+        },
         
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    searchBarService = TestBed.inject(SearchBarService);
     dispatchSpy = storeSpy.dispatch;
-    httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
@@ -50,7 +63,7 @@ describe('HeaderComponent', () => {
 
   it('should call show on searchBarService when toggleSearchBar is called', () => {
     component.toggleSearchBar();
-    expect(searchBarService.show).toHaveBeenCalled();
+    expect(showSpy).toHaveBeenCalled();
   });
 });
 
