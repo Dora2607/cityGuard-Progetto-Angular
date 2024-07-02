@@ -62,14 +62,17 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.searchUsersSubscription = this.searchBarService.searchTerm.subscribe(
       (term: string) => {
         const allUsers = this.usersListService.getDisplayedUsers();
-        this.displayedUsers = allUsers.filter(
-          (user) =>
-            user.name.toLowerCase().includes(term) ||
-            user.email.toLowerCase().includes(term),
-        );
-        this.usersListService.setDisplayedUsers(this.displayedUsers);
+        if (allUsers) {
+          this.displayedUsers = allUsers.filter(
+            (user) =>
+              user.name.toLowerCase().includes(term) ||
+              user.email.toLowerCase().includes(term),
+          );
+          this.usersListService.setDisplayedUsers(this.displayedUsers);
+        }
       },
     );
+    
   }
 
   getAllUser(): void {

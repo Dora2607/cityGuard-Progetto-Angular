@@ -93,6 +93,28 @@ La componente `UsersViewComponent` è un componente Angular che fornisce una vis
 3. `deleteButton()`: Questo metodo viene chiamato quando il pulsante di eliminazione viene premuto. Inverte il valore della proprietà isDeleteBtnClicked del componente e invia il nuovo valore al servizio `UsersViewService`.
 Questo componente dipende dal servizio UsersViewService, che fornisce metodi per aggiornare lo stato e il conteggio degli utenti, e per gestire l’evento del pulsante di eliminazione.
 
+#### UsersListComponent
+La componente `UsersListComponent` è responsabile della visualizzazione dell’elenco degli utenti. Utilizza il servizio `UsersListService` per ottenere e gestire l’elenco degli utenti. La componente ha diversi metodi chiave:
+
+1. `ngOnInit()`: Questo metodo viene chiamato all’inizializzazione della componente. Recupera l’elenco degli utenti e si sottoscrive a vari osservabili. Ecco un'analisi più dettagliata di ciò che accade in questo metodo:
+
+- `this.loggedUser = this.loggedUserService.initializePersonalProfile();`: Questa linea inizializza il profilo dell'utente loggato utilizzando il metodo `initializePersonalProfile()` del servizio `LoggedUserService`.
+
+- `if (this.usersListService.isFirstVisit) {...} else {...}`: Questo blocco di codice controlla se è la prima visita dell'utente. Se lo è, chiama il metodo `getAllUser()` per ottenere tutti gli utenti e imposta `isFirstVisit` su `false`. Altrimenti, ottiene gli utenti visualizzati dal servizio `UsersListService`.
+
+- `this.usersSubscription = this.usersListService.displayedUsersChanged.subscribe(...)`: Questa linea si sottoscrive all'osservabile `displayedUsersChanged` del servizio `UsersListService`. Quando l'elenco degli utenti visualizzati cambia, aggiorna l'elenco degli utenti visualizzati nella componente.
+
+- `this.usersViewService.deleteButtonClicked.subscribe(...)`: Questa linea si sottoscrive all'osservabile `deleteButtonClicked` del servizio `UsersViewService`. Quando il pulsante di eliminazione viene cliccato, aggiorna lo stato del pulsante di eliminazione nella componente.
+
+- `this.isLoadingSubscription = this.usersListService.isLoading.subscribe(...)`: Questa linea si sottoscrive all'osservabile `isLoading` del servizio `UsersListService`. Quando lo stato di caricamento cambia, aggiorna lo stato di caricamento nella componente.
+
+- `this.searchUsersSubscription = this.searchBarService.searchTerm.subscribe(...)`: Questa linea si sottoscrive all'osservabile `searchTerm` del servizio `SearchBarService`. Quando il termine di ricerca cambia, filtra l'elenco degli utenti visualizzati in base al termine di ricerca e aggiorna l'elenco degli utenti visualizzati nel servizio `UsersListService`.
+
+2. `getAllUser()`: Questo metodo recupera tutti gli utenti dal servizio ApiService e li imposta nel servizio UsersListService.
+3. `activeDeleteUser(id: number)`: Questo metodo viene chiamato quando un utente clicca sul pulsante di eliminazione. Chiede conferma all’utente e, se confermato, elimina l’utente.
+4. `goToPreviousPage()`: Questo metodo viene chiamato quando un utente clicca sul pulsante Indietro. Cambia lo stato del pulsante di eliminazione.
+5. `ngOnDestroy()`: Questo metodo viene chiamato quando la componente viene distrutta. Si disiscrive da tutti gli osservabili a cui la componente è sottoscritta.
+
 ### I servizi 
 
 #### ApiService
@@ -135,6 +157,16 @@ Il servizio `UsersViewService` è un servizio Angular che fornisce metodi per ge
 2. `updateUsersCount(count: number)`: Questo metodo viene chiamato quando il numero di utenti da mostrare viene aggiornato. Prende come parametro il nuovo conteggio e aggiorna il conteggio degli utenti nel servizio UsersListService. Inoltre, riduce il numero di utenti visualizzati in base al nuovo conteggio.
 3. `deleteButtonClicked`: Questo è un Subject di RxJS che emette un evento ogni volta che il pulsante di eliminazione viene premuto.
 Questo servizio dipende dal servizio `UsersListService`, che fornisce metodi per ottenere e impostare gli utenti visualizzati.
+
+#### UsersListService
+
+Il servizio `UsersListService` gestisce l’elenco degli utenti per l’applicazione. Mantiene due liste di utenti: allUsers e displayedUsers. Ha diversi metodi chiave:
+
+1. `setAllUsers(users: Users[])`: Questo metodo imposta l’elenco di tutti gli utenti.
+2. `setDisplayedUsers(displayedUsers: Users[])`: Questo metodo imposta l’elenco degli utenti visualizzati.
+3. `getDisplayedUsers()`: Questo metodo restituisce una copia dell’elenco degli utenti visualizzati.
+4. `addUser(user: Users)`: Questo metodo aggiunge un utente all’elenco di tutti gli utenti e aggiorna l’elenco degli utenti visualizzati.
+5. `deleteUser(id: number)`: Questo metodo rimuove un utente dall’elenco di tutti gli utenti e aggiorna l’elenco degli utenti visualizzati.
 
 
 ## Running unit tests
