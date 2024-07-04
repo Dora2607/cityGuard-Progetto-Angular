@@ -4,6 +4,7 @@ import { Users, newUser } from '../../../../models/users.model';
 import { ApiService } from '../../../../services/api.service';
 import { UsersListService } from '../../../../services/users-list.service';
 import { Router } from '@angular/router';
+import { catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-add-user',
@@ -55,22 +56,23 @@ export class AddUserComponent implements OnInit {
       status: this.randomStatus(),
     };
 
-    this.apiService.addUser(this.addNewUser).subscribe(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (response: any) => {
+    this.apiService.addUser(this.addNewUser).pipe(
+      tap((response) => {
         alert('User added successfully');
         const newUser = response as Users;
         this.usersListService.addUser(newUser);
         this.router.navigate(['features/usersManagement']);
-      },
-      (error) => {
+      }),
+      catchError((error) => {
         if (error.status === 422) {
           alert(
             'An user with this email already exists. Please choose a different email.',
           );
         }
-      },
-    );
+        throw error;
+      })
+    ).subscribe();
+    
   }
 
   goBack(event: Event) {

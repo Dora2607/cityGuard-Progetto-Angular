@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   styleUrl: './user-details.component.scss',
 })
 export class UserDetailsComponent {
-  userId!: string;
-
   constructor(private router: Router) {}
 
   goToList() {

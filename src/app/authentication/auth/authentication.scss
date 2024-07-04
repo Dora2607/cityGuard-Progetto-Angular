@@ -216,7 +216,6 @@ $card-form-width: 70%;
       margin-top: 2rem;
 
       .inputForm {
-        // padding-bottom: 1.6rem;
         width: 300px;
       }
     }
@@ -227,13 +226,13 @@ $card-form-width: 70%;
   .logoContainer,
   .mainContainer {
     height: 100%;
-    min-height: 540px;
+    min-height: 580px;
     width: 550px;
   }
 
   .loginCard,
   .signupCard {
-    min-height: 540px;
+    min-height: 580px;
     height: 100%;
 
     .loginForm,

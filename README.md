@@ -84,6 +84,8 @@ L’utente può inserire un termine di ricerca e fare clic su “Submit”.
 Il servizio SearchBarService riceve il termine di ricerca e lo elabora.
 Quando l’utente termina la ricerca, la barra di ricerca viene nascosta.
 
+### UsersManagementComponent
+
 #### UsersViewComponent
 
 La componente `UsersViewComponent` è un componente Angular che fornisce una vista per gli utenti. Questo componente ha tre metodi principali: `onStatusUpdate`, `onUsersUpdated` e `deleteButton`.
@@ -114,6 +116,27 @@ La componente `UsersListComponent` è responsabile della visualizzazione dell’
 3. `activeDeleteUser(id: number)`: Questo metodo viene chiamato quando un utente clicca sul pulsante di eliminazione. Chiede conferma all’utente e, se confermato, elimina l’utente.
 4. `goToPreviousPage()`: Questo metodo viene chiamato quando un utente clicca sul pulsante Indietro. Cambia lo stato del pulsante di eliminazione.
 5. `ngOnDestroy()`: Questo metodo viene chiamato quando la componente viene distrutta. Si disiscrive da tutti gli osservabili a cui la componente è sottoscritta.
+
+#### AddUserComponent
+La componente `AddUserComponent` è responsabile della creazione di un nuovo utente. Questa componente contiene un form che raccoglie le informazioni dell’utente come nome, email, genere e stato. 
+Vediamo i metodi:
+1. `fullName()` combina il nome e il cognome dell’utente in un unico nome completo. 
+2. `randomStatus()` genera uno stato casuale per l’utente. 
+3. `newUser()` crea un nuovo utente con le informazioni raccolte dal form, invia una richiesta all’API per aggiungere l’utente e naviga indietro alla lista degli utenti una volta che l’utente è stato aggiunto con successo.
+4. `goBack()` naviga indietro alla lista degli utenti quando viene cliccato il pulsante.
+
+### UserDetailsComponent
+
+La componente `UserDetailsComponent` è responsabile della visualizzazione dei dettagli di un utente specifico. Questa componente include due sottocomponenti: `app-user-profile` e `app-user-posts`, che mostrano rispettivamente il profilo dell’utente e i post pubblicati dall’utente. Inoltre, UserDetailsComponent fornisce un pulsante “Back” che, quando cliccato, naviga indietro alla gestione degli utenti.
+
+
+#### UserProfileComponent
+La componente `UserProfileComponent` è la componente che gestisce la visualizzazione del profilo utente. Questo componente recupera l’ID dell’utente dalla rotta attiva e utilizza questo ID per recuperare i dettagli dell’utente e i suoi “todo” tramite i servizi `UserProfileService` e `ApiService`. I dettagli dell’utente e i “todo” vengono quindi visualizzati nella vista del componente.
+Inoltre, gestisce le sottoscrizioni agli Observable e si assicura che queste sottoscrizioni vengano annullate quando il componente viene distrutto. I metodi nel dettaglio sono:
+1. `ngOnInit()`: Questo è il metodo di inizializzazione del ciclo di vita del componente Angular che viene chiamato automaticamente quando Angular inizializza il componente. In questo metodo, l’ID dell’utente viene recuperato dal parametro della rotta e vengono chiamati i metodi `getUserById()` e `updatedTodos()` per recuperare i dettagli dell’utente e i suoi “todo”. Viene anche impostata una sottoscrizione all’Observable `currentPostNumber` del servizio UserProfileService.
+2. `getUserById(id: number)`: Questo metodo chiama il metodo `getUser(id)` del servizio UserProfileService per recuperare i dettagli dell’utente con l’ID specificato. I dettagli dell’utente vengono quindi salvati nella proprietà userProfile del componente e viene emesso un evento per aggiornare il profilo utente nel servizio UserProfileService. Viene anche generata una descrizione casuale per l’utente.
+3. `updatedTodos(id: number)`: Questo metodo chiama il metodo getTodos(id) del servizio ApiService per recuperare i “todo” dell’utente con l’ID specificato. I “todo” vengono quindi salvati nella proprietà todos del componente.
+4. `ngOnDestroy()`: Questo è il metodo del ciclo di vita del componente Angular che viene chiamato automaticamente quando Angular distrugge il componente. In questo metodo, la sottoscrizione all’Observable currentUser del servizio UserProfileService viene annullata per prevenire perdite di memoria.
 
 ### I servizi 
 
