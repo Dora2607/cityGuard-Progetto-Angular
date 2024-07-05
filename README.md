@@ -138,6 +138,19 @@ Inoltre, gestisce le sottoscrizioni agli Observable e si assicura che queste sot
 3. `updatedTodos(id: number)`: Questo metodo chiama il metodo getTodos(id) del servizio ApiService per recuperare i “todo” dell’utente con l’ID specificato. I “todo” vengono quindi salvati nella proprietà todos del componente.
 4. `ngOnDestroy()`: Questo è il metodo del ciclo di vita del componente Angular che viene chiamato automaticamente quando Angular distrugge il componente. In questo metodo, la sottoscrizione all’Observable currentUser del servizio UserProfileService viene annullata per prevenire perdite di memoria.
 
+#### UserPostsComponent
+`UserPostsComponent` è un componente Angular che gestisce la visualizzazione dei post dei singoli utenti. Ecco come funziona:
+
+1. `ngOnInit()`: Questo metodo viene chiamato quando Angular inizializza il componente. In questo metodo, il componente recupera l’utente corrente, l’ID dell’utente dalla rotta, si sottoscrive all’utente corrente dal servizio `UserProfileService`, aggiorna i post e inizializza il form dei commenti.
+2. `updatedPosts(id: number)`: Questo metodo prende un ID utente come input e aggiorna i post per quell’utente. Se l’ID dell’utente non corrisponde all’utente corrente, recupera i post dall’API. Altrimenti, si sottoscrive ai post personali dal servizio `PostsService`.
+3. `lengthPosts(posts: Posts[])`: Questo metodo prende un array di post come input e controlla se l’array è vuoto. Se l’array è vuoto, imposta isEmptyPostsArr a true. Inoltre, emette il numero di post tramite il servizio `UserProfileService`.
+4. `initializeCommentForm()`: Questo metodo inizializza il form dei commenti con un campo commentText che è richiesto.
+5. `toggleComments(id: number) e toggleAddComments(id: number)`: Questi metodi prendono un ID post come input e attivano la visibilità dei commenti e del box di aggiunta commenti per quel post.
+6. `addComment(id: number)`: Questo metodo prende un ID post come input, crea un nuovo commento con i dettagli dell’utente corrente e il testo del commento dal form, e poi chiama l’API per aggiungere il commento.
+7. `goBack(id: number)`: Questo metodo prende un ID post come input e attiva la visibilità del box di aggiunta commenti per quel post.
+8. `ngOnDestroy()`: Questo metodo viene chiamato quando Angular distrugge la componente.
+Il template del componente visualizza una lista di post con la possibilità di visualizzare i commenti per ogni post e di aggiungere nuovi commenti. Se non ci sono post per l’utente, viene visualizzato un messaggio “Non ci sono post da questo utente”.
+
 ### I servizi 
 
 #### ApiService
@@ -191,6 +204,27 @@ Il servizio `UsersListService` gestisce l’elenco degli utenti per l’applicaz
 4. `addUser(user: Users)`: Questo metodo aggiunge un utente all’elenco di tutti gli utenti e aggiorna l’elenco degli utenti visualizzati.
 5. `deleteUser(id: number)`: Questo metodo rimuove un utente dall’elenco di tutti gli utenti e aggiorna l’elenco degli utenti visualizzati.
 
+#### UserProfileService
+`UserProfileService` è un servizio Angular che fornisce metodi per gestire le informazioni degli utenti.
+Fornisce i seguenti metodi:
+
+1. `getUsers()`: Questo metodo restituisce un Observable di un array di utenti. Utilizza il metodo `getDisplayedUsers()` del servizio `UsersListService` per ottenere gli utenti.
+2. `getUser(id: number | string)`: Questo metodo prende un ID utente come input e restituisce un Observable dell’utente corrispondente. Utilizza il metodo `getUsers()` per ottenere tutti gli utenti e quindi trova l’utente con l’ID corrispondente.
+3. `getIds(users:Users[])`: Questo metodo prende un array di utenti come input e restituisce un array di ID utente. Mappa semplicemente ogni utente al suo ID.
+4. `getUserDescription()`: Questo metodo restituisce una descrizione casuale dell’utente da un array predefinito di descrizioni.
+5. `emitUpdateUser(user: Users)`: Questo metodo prende un utente come input e emette questo utente come il nuovo utente corrente. Utilizza un BehaviorSubject per memorizzare l’utente corrente, che può essere sottoscritto da altre parti dell’applicazione per reagire alle modifiche dell’utente corrente.
+6. `emitUpdateNumPost(num:number)`: Questo metodo prende un numero come input e emette questo numero come il nuovo numero di post. Utilizza un BehaviorSubject per memorizzare il numero di post, che può essere sottoscritto da altre parti dell’applicazione per reagire alle modifiche del numero di post.
+
+#### PostsService
+`PostsService` è un servizio Angular che fornisce metodi per gestire i post degli utenti. I metodi sono:
+
+1. `setAllPosts(posts: Posts[])`: Questo metodo prende un array di post come input e li imposta come tutti i post. Successivamente, emette i post come un nuovo valore per `allPostsChanged`.
+2. `setDisplayedPosts(displayedPosts: Posts[])`: Questo metodo prende un array di post come input e li imposta come i post visualizzati. Successivamente, emette i post come un nuovo valore per `displayedPostsChanged`.
+3. `getDispayedPosts()`: Questo metodo restituisce una copia di tutti i post.
+4. `getAllPosts(userIds: number[])`: Questo metodo prende un array di ID utente come input e restituisce un Observable di un array di post per quegli utenti. Utilizza il metodo `getPosts(id)` del servizio `ApiService` per ottenere i post per ogni ID utente.
+5. `addPost(id: number)`: Questo metodo prende un ID utente come input e restituisce l’ID. Questo metodo viene utilizzato per aggiungere un nuovo post per l’utente specificato.
+6. `addPersonalPost(post: Posts)`: Questo metodo prende un post come input e lo aggiunge all’inizio di tutti i post e alla fine dei post personali. Successivamente, emette i post come un nuovo valore per `allPostsChanged` e `personalPostChanged`.
+7. `removePosts(id: number)`: Questo metodo prende un ID utente come input e rimuove tutti i post di quell’utente da tutti i post e dai post visualizzati. Successivamente, emette i post come un nuovo valore per `allPostsChanged` e `displayedPostsChanged`.
 
 ## Running unit tests
 
