@@ -46,9 +46,7 @@ describe('UsersViewService', () => {
         status: 'Inactive',
       },
     ];
-    const updatedUsers = dummyUsers.filter(
-      (user) => user.status === status,
-    );
+    const updatedUsers = dummyUsers.filter((user) => user.status === status);
     usersListService.getDisplayedUsers.and.returnValue(dummyUsers);
     service.updateStatus(status);
     expect(usersListService.setDisplayedUsers).toHaveBeenCalledWith(
@@ -81,10 +79,11 @@ describe('UsersViewService', () => {
         status: 'Active',
       },
     ];
-  const updatedUsersCount = dummyUsers.slice(0, count);
-  usersListService.getDisplayedUsers.and.returnValue(dummyUsers);
-  service.updateUsersCount(count);
-  expect(usersListService.setDisplayedUsers).toHaveBeenCalledWith(updatedUsersCount);
+    const updatedUsersCount = dummyUsers.slice(0, count);
+    usersListService.getDisplayedUsers.and.returnValue(dummyUsers);
+    service.updateUsersCount(count);
+    expect(usersListService.setDisplayedUsers).toHaveBeenCalledWith(
+      updatedUsersCount,
+    );
   });
-
 });

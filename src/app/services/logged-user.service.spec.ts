@@ -33,5 +33,4 @@ describe('LoggedUserService', () => {
       expect(user).toEqual(loggedUser);
     });
   });
-
 });

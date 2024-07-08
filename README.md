@@ -151,6 +151,16 @@ Inoltre, gestisce le sottoscrizioni agli Observable e si assicura che queste sot
 8. `ngOnDestroy()`: Questo metodo viene chiamato quando Angular distrugge la componente.
 Il template del componente visualizza una lista di post con la possibilità di visualizzare i commenti per ogni post e di aggiungere nuovi commenti. Se non ci sono post per l’utente, viene visualizzato un messaggio “Non ci sono post da questo utente”.
 
+#### CommentsComponent
+
+Il componente `CommentsComponent` è responsabile della visualizzazione dei commenti per un post specifico. I metodi principali del componente sono:
+
+- `ngOnInit()`: Questo metodo viene chiamato all'inizializzazione del componente. Recupera i commenti per il post specificato dal servizio `CommentsService`. Se non ci sono commenti, richiede i commenti dall'API. Sottoscrive i cambiamenti dei commenti e lo stato di caricamento dei commenti.
+- `ngOnDestroy()`: Questo metodo annulla le sottoscrizioni ai cambiamenti dei commenti e allo stato di caricamento dei commenti quando il componente viene distrutto.
+
+Il template del componente visualizza un elenco di commenti con la possibilità di visualizzare un messaggio quando non ci sono commenti o un indicatore di caricamento quando i commenti sono in fase di caricamento.
+
+
 ### I servizi 
 
 #### ApiService
@@ -225,6 +235,14 @@ Fornisce i seguenti metodi:
 5. `addPost(id: number)`: Questo metodo prende un ID utente come input e restituisce l’ID. Questo metodo viene utilizzato per aggiungere un nuovo post per l’utente specificato.
 6. `addPersonalPost(post: Posts)`: Questo metodo prende un post come input e lo aggiunge all’inizio di tutti i post e alla fine dei post personali. Successivamente, emette i post come un nuovo valore per `allPostsChanged` e `personalPostChanged`.
 7. `removePosts(id: number)`: Questo metodo prende un ID utente come input e rimuove tutti i post di quell’utente da tutti i post e dai post visualizzati. Successivamente, emette i post come un nuovo valore per `allPostsChanged` e `displayedPostsChanged`.
+
+#### CommentsService
+
+Il servizio `CommentsService` è responsabile della gestione dei commenti per un post specifico. I metodi principali del servizio sono:
+
+1. `fetchComments(postId: number)`: Questo metodo recupera i commenti per un post specifico dall’API e li imposta nel servizio. Durante il recupero dei commenti, imposta isCommentsBoxLoading a true e lo reimposta a false una volta che i commenti sono stati recuperati.
+2. `setComments(postId: number, comments: Comments[])`: Questo metodo imposta i commenti per un post specifico e emette un evento per segnalare che i commenti sono cambiati.
+3. `getComments(postId: number)`: Questo metodo restituisce i commenti per un post specifico.
 
 ## Running unit tests
 

@@ -41,10 +41,6 @@ export class PostsService {
     );
   }
 
-  addPost(id: number) {
-    return id;
-  }
-
   addPersonalPost(post: Posts) {
     this.allPosts.unshift(post);
     this.displayedPostsChanged.next(this.allPosts.slice());

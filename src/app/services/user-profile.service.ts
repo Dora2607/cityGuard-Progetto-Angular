@@ -4,16 +4,12 @@ import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { Users } from '../models/users.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserProfileService {
-
-
   userDescriptions: string[] = [];
 
-  constructor(
-    private usersListService:UsersListService
-  ) { }
+  constructor(private usersListService: UsersListService) {}
 
   getUsers(): Observable<Users[]> {
     return of(this.usersListService.getDisplayedUsers());
@@ -25,10 +21,10 @@ export class UserProfileService {
     );
   }
 
-  getIds(users:Users[]):number[]{
+  getIds(users: Users[]): number[] {
     return users.map((user) => user.id);
   }
-  
+
   getUserDescription() {
     this.userDescriptions = [
       "Let's make our city a hub for new ideas, commerce, culture, science, productivity, and social development.",
@@ -44,7 +40,6 @@ export class UserProfileService {
     return this.userDescriptions[
       Math.floor(Math.random() * this.userDescriptions.length)
     ];
-
   }
 
   private identityUserSource = new BehaviorSubject<Users>({
@@ -55,17 +50,15 @@ export class UserProfileService {
     status: '',
   });
   currentUser = this.identityUserSource.asObservable();
-  
+
   emitUpdateUser(user: Users) {
     this.identityUserSource.next(user);
   }
 
-  private postNumberSource = new BehaviorSubject<number>(0)
+  private postNumberSource = new BehaviorSubject<number>(0);
   currentPostNumber = this.postNumberSource.asObservable();
 
-  emitUpdateNumPost(num:number){
+  emitUpdateNumPost(num: number) {
     this.postNumberSource.next(num);
   }
-
-
 }

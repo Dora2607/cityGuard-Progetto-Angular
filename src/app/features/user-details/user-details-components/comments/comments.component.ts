@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Comments } from '../../../../models/comments.model';
 import { Subscription } from 'rxjs';
 import { CommentsService } from '../../../../services/comments.service';
@@ -8,7 +14,7 @@ import { listAnimation } from '../../../../shared/Animations/list-animation';
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.scss',
-  animations:[listAnimation]
+  animations: [listAnimation],
 })
 export class CommentsComponent implements OnInit, OnDestroy {
   @Input() postId!: number;
@@ -17,8 +23,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
   isCommentBoxLoading = false;
   isBoxLoadingSubscription!: Subscription;
 
-  constructor(private commentsService: CommentsService, private cdr: ChangeDetectorRef
-    
+  constructor(
+    private commentsService: CommentsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -28,18 +35,18 @@ export class CommentsComponent implements OnInit, OnDestroy {
     }
     this.commentsSubscription = this.commentsService.commentsChanged.subscribe(
       (comments: Record<number, Comments[]>) => {
-        this.comments = comments[this.postId] || []; 
+        this.comments = comments[this.postId] || [];
       },
     );
-    this.isBoxLoadingSubscription = this.commentsService.isCommentsBoxLoading.subscribe(
-      (isLoading:boolean)=>{
-        this.isCommentBoxLoading = isLoading;
-        this.cdr.detectChanges();
-      }
-    )
+    this.isBoxLoadingSubscription =
+      this.commentsService.isCommentsBoxLoading.subscribe(
+        (isLoading: boolean) => {
+          this.isCommentBoxLoading = isLoading;
+          this.cdr.detectChanges();
+        },
+      );
   }
 
-  
   ngOnDestroy(): void {
     this.commentsSubscription.unsubscribe();
     this.isBoxLoadingSubscription.unsubscribe();

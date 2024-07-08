@@ -95,5 +95,4 @@ describe('UserProfileService', () => {
       expect(user).toEqual(dummyUser);
     });
   });
-
 });
