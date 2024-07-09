@@ -4,14 +4,11 @@ import { PostsOverviewComponent } from './posts-overview.component';
 import { AuthGuard } from '../../authentication/guard/auth.guard';
 
 const routes: Routes = [
-  { path:'',
-    component: PostsOverviewComponent,
-    canActivate:[AuthGuard]
-  }
+  { path: '', component: PostsOverviewComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PostsOverviewRoutingModule { }
+export class PostsOverviewRoutingModule {}

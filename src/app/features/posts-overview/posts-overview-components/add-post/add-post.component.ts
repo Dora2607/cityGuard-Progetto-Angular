@@ -60,7 +60,7 @@ export class AddPostComponent implements OnInit {
         this.closeBox();
       },
     );
-  } 
+  }
 
   showAddPostBox() {
     this.toggleVisibility = !this.toggleVisibility;
