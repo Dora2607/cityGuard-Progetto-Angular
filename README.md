@@ -301,7 +301,6 @@ Il servizio `SearchBarService` gestisce la comunicazione tra la componente di ri
 - I metodi `show()` e `search(term: string)` vengono utilizzati per attivare la visualizzazione della barra di ricerca e per inviare il termine di ricerca.
 
 #### UsersViewService
-
 Il servizio `UsersViewService` è un servizio Angular che fornisce metodi per gestire lo stato e gli eventi relativi alla visualizzazione degli utenti. Questo servizio ha tre metodi principali:
 
 1. `updateStatus(newStatus: string)`: Questo metodo viene chiamato quando lo stato degli utenti viene aggiornato. Prende come parametro il nuovo stato e aggiorna lo stato corrente nel servizio UsersListService. Inoltre, filtra gli utenti in base al nuovo stato.
@@ -369,7 +368,7 @@ Il servizio `CommentsService` è responsabile della gestione dei commenti per un
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Digita `ng test` per eseguire gli unit tests via [Karma](https://karma-runner.github.io).
 Per generare un report sulla coverage del codice, puoi utilizzare il comando `ng test --code-coverage`. Questo genererà una directory `coverage` nel tuo progetto con un report HTML sulla coverage del tuo codice.
 
 

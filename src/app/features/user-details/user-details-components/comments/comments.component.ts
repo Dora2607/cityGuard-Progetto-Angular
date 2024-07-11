@@ -30,9 +30,12 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.comments = this.commentsService.getComments(this.postId);
-    if (this.comments.length === 0) {
-      this.commentsService.fetchComments(this.postId);
+    
+      if (this.comments.length === 0) {
+        this.commentsService.fetchComments(this.postId);
+      
     }
+
     this.commentsSubscription = this.commentsService.commentsChanged.subscribe(
       (comments: Record<number, Comments[]>) => {
         this.comments = comments[this.postId] || [];
@@ -48,7 +51,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.commentsSubscription.unsubscribe();
-    this.isBoxLoadingSubscription.unsubscribe();
+    if (this.commentsSubscription) {
+      this.commentsSubscription.unsubscribe();
+    }
+    if (this.isBoxLoadingSubscription) {
+      this.isBoxLoadingSubscription.unsubscribe();
+    }
   }
 }

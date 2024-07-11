@@ -75,10 +75,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
 
     this.searchBarService.searchTerm.subscribe((term: string) => {
       const allPosts = this.postsService.getDispayedPosts();
-      this.displayedPosts = allPosts.filter((post: Posts) =>
-        post.title.toLowerCase().includes(term),
-      );
-      this.postsService.setDisplayedPosts(this.displayedPosts);
+      if (allPosts) {
+        this.displayedPosts = allPosts.filter((post: Posts) =>
+          post.title.toLowerCase().includes(term),
+        );
+        this.postsService.setDisplayedPosts(this.displayedPosts);
+      }
     });
   }
 
