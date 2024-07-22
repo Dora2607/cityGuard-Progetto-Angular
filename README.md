@@ -9,6 +9,7 @@ Gli utenti possono aprire la scheda di un utente, dove vengono mostrati i suoi d
 È presente una seconda funzionalità in cui l’utente visualizza tutti i post, può effettuare delle ricerche e, una volta individuato il post di interesse, può visualizzare i commenti e inserirne di nuovi. In questa sezione l’utente può inserire dei nuovi post.
 
 ## Tecnologie utilizzate
+
 L’applicazione è stata sviluppata utilizzando diverse tecnologie e librerie:
 
 - `Angular CLI versione 18.0.3`: Il framework Angular CLI è stato utilizzato per creare l’applicazione e gestire i componenti, i servizi e le altre parti dell’applicazione.
@@ -17,6 +18,18 @@ L’applicazione è stata sviluppata utilizzando diverse tecnologie e librerie:
 - `ESLint e Prettier`: Questi strumenti sono stati utilizzati per formattare il codice e mantenere uno stile di codice coerente. Lanciare da terminale il comando `ng lint`.
 
 ## Configurazione e prova in locale
+
+### Pre-requisiti
+- Node: versione 22.2.0
+- NPM: versione 10.8.1
+- Angular: versione 18.0.3
+
+Per installare Node: scaricare la versione lts da: [https://nodejs.org/en/download/package-manager], verrà installato anche npm. 
+Per installare Angular da terminale: 
+```bash
+npm install -g @angular/cli
+```
+### Installazione
 Per configurare e testare l'applicazione in locale, segui questi passaggi:
 
 1. Clona il repository sul tuo computer locale.

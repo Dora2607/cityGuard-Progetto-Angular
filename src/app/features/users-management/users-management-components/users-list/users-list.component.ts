@@ -96,7 +96,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
     if (confirmDelete) {
       this.apiService.deleteUser(id).subscribe(() => {
         this.usersListService.deleteUser(id);
-        alert('The user has been deleted');
       });
     } else {
       alert('The deletion was canceled');

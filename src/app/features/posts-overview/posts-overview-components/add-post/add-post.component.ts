@@ -50,7 +50,6 @@ export class AddPostComponent implements OnInit {
     this.apiService.addPosts(id, this.addNewPost).subscribe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (post: any) => {
-        alert('Post added successfully');
         this.postsService.addPersonalPost(post);
         this.postForm.reset();
 

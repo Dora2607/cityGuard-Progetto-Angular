@@ -138,7 +138,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
       .addComments(id, this.addNewComment)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .subscribe((comment: any) => {
-        alert('Comment added successfully');
         const newComments = [...this.commentsService.getComments(id), comment];
         this.commentsService.setComments(id, newComments);
         this.commentForm.reset({ commentText: '' });
