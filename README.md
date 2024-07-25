@@ -1,6 +1,26 @@
 # CityGuard Per NTT DATA
 CityGuard è un'applicazione che mira a migliorare la vita delle persone nei centri urbani. L'applicazione consente agli utenti di condividere le proprie idee e segnalazioni per contribuire a proteggere e salvaguardare il patrimonio culturale e naturale della città e supportare i legami positivi, sociali e ambientali, tra aree urbane.
 
+## Demo 
+
+![Demo1](./img-readme/1.jpg)
+Questa immagine mostra la schermata iniziale dell’applicazione, con la possibilità di loggarsi oppure registrarsi.
+
+![Demo2](./img-readme/2.jpg)
+Effettuato l'accesso, è possibile visionare la lista di utenti e interagire con la stessa. 
+
+![Demo3](./img-readme/3.jpg)
+Cliccando su uno degli utenti presenti nella lista, è possibile entrare nella sua pagina di dettaglio.
+
+![Demo4](./img-readme/4.jpg)
+Per singolo utente oppure in post overview è possibile leggere e inserire commenti ai post. 
+
+![Demo5](./img-readme/5.jpg)
+In post overview, è possibile inserire un post attraverso l'utente loggato. 
+
+![Demo6](./img-readme/6.jpg)
+Form atto ad inserire un nuovo utente.
+
 ## Funzionalità
 Dopo aver effettuato l'autenticazione, gli utenti possono accedere alla sezione dove è possibile vedere la lista degli utenti, con la possibilità di svolgere una ricerca per nome o email. È possibile creare o eliminare un nuovo utente.
 
@@ -138,6 +158,8 @@ Quando l’utente fa clic sull’icona di ricerca, la barra di ricerca viene mos
 L’utente può inserire un termine di ricerca e fare clic su “Submit”.
 Il servizio SearchBarService riceve il termine di ricerca e lo elabora.
 Quando l’utente termina la ricerca, la barra di ricerca viene nascosta.
+
+### Features Components
 
 ### UsersManagementComponent
 
@@ -382,6 +404,27 @@ Il servizio `CommentsService` è responsabile della gestione dei commenti per un
 ## Running unit tests
 
 Digita `ng test` per eseguire gli unit tests via [Karma](https://karma-runner.github.io).
-Per generare un report sulla coverage del codice, puoi utilizzare il comando `ng test --code-coverage`. Questo genererà una directory `coverage` nel tuo progetto con un report HTML sulla coverage del tuo codice.
+Per generare un report sulla coverage del codice, puoi utilizzare il comando `ng test --code-coverage`. Questo genererà una directory `coverage` nel progetto con un report HTML sulla coverage del codice.
 
+Vediamo brevemente i test eseguiti:
+- `LoginComponent`: Verifica la creazione del componente, l’invio dell’azione di login quando viene chiamato il login con un form valido, la validazione del form e il controllo che il form sia invalido.
+- `SignupComponent`: Verifica la creazione del componente, la validazione del form di registrazione e l’invio dell’azione di registrazione quando viene chiamato il signup con un form valido.
+- `UsersViewComponent`: Verifica la chiamata al metodo deleteButtonClicked di usersViewService quando viene chiamato deleteButton. Verifica la chiamata al metodo updateStatus su usersViewService quando viene chiamato onStatusUpdate. Verifica la chiamata al metodo updateUsersCount su usersViewService quando viene chiamato onUsersUpdated.
+- `CommentsComponent`: Verifica la creazione del componente.
+- `UserPostsComponent`: Verifica la creazione del componente.
+- `AddUserComponent`: Verifica la creazione del componente, la creazione di un nuovo utente, la generazione di uno stato casuale, la combinazione di nome e cognome e la navigazione verso la gestione degli utenti.
+- `PostsListComponent`: Verifica la creazione del componente, l’inizializzazione dell’utente loggato su ngOnInit, l’aggiunta di un nuovo commento e l’ottenimento di tutti i post su ngOnInit se è la prima visita.
+- `LogoComponent`: Verifica la creazione del componente e l’ottenimento del valore isToolbar da logoService.
+- `UsersListComponent`: Verifica la creazione del componente, la chiamata a apiService.getUsers in getAllUser, l’aggiornamento di isdeleteBtnClicked quando deleteButtonClicked emette, la disiscrizione su ngOnDestroy, l’alternanza di isdeleteBtnClicked quando viene chiamato goToPreviousPage, la chiamata a getAllUser se non è la prima visita, l’aggiornamento di displayedUsers quando displayedUsersChanged emette e l’inizializzazione dell’utente loggato su ngOnInit.
+- `AddPostComponent`: Verifica la creazione del componente, l’aggiunta di un post, l’inizializzazione del form del post su init, la chiusura del box del post e l’alternanza della visibilità del box del post.
+- `SearchBarComponent`: Verifica la creazione del componente, la chiamata a search su searchBarService con stringa vuota e nasconde la barra di ricerca quando viene chiamato endSearch e la chiamata a search su searchBarService con termine di ricerca quando viene inviato il submit.
+- `HeaderComponent`: Verifica la creazione del componente, la chiamata a show su searchBarService quando viene chiamato toggleSearchBar e la chiamata a logout su store quando viene chiamato logout.
 
+- `CommentsService`: Verifica la creazione del servizio, il recupero dei commenti e l’impostazione e l’ottenimento dei commenti.
+- `PostsService`: Verifica la creazione del servizio, l’aggiunta di un post personale, l’ottenimento di tutti i post, la rimozione del post per ID utente, l’impostazione di tutti i post e l’impostazione dei post visualizzati.
+- `LoggedUserService`: Verifica la creazione del servizio e il ritorno dell’utente loggato.
+- `UserProfileService`: Verifica la creazione del servizio, l’ottenimento dell’utente per ID, l’ottenimento dell’ID per array di utenti, l’ottenimento di una descrizione dell’utente e l’emissione dell’utente aggiornato.
+- `SearchBarService`: Verifica la creazione del servizio, l’emissione dell’evento quando viene chiamato show e l’aggiornamento del termine di ricerca quando viene chiamato search.
+ApiService: Verifica la creazione del servizio, l’aggiunta di un nuovo post, la registrazione di un nuovo utente, l’aggiunta di un nuovo utente, il recupero di un elenco di utenti, l’eliminazione di un utente, il recupero di un elenco di commenti, il recupero di un elenco di attività, il recupero di un elenco di post e l’aggiunta di un nuovo commento.
+- `UsersViewService`: Verifica la creazione del servizio, la chiamata a setDisplayedUsers con utenti aggiornati quando viene chiamato updateStatus e la chiamata a setDisplayedUsers con utenti ridotti quando viene chiamato updateUsersCount.
+- `UsersListService`: Verifica la creazione del servizio, la chiamata a removePosts quando un utente viene eliminato e l’impostazione degli utenti visualizzati.
