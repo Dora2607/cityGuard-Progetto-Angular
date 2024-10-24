@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/city-guard-per-ntt-data/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
