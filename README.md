@@ -22,7 +22,7 @@ In post overview, è possibile inserire un post attraverso l'utente loggato.
 Form atto ad inserire un nuovo utente.
 
 ## Link
-[CityGuard](https://cityguard-e2c29.web.app): per provare l'applicazione.
+[CityGuard](https://cityguard-e2c29.web.app/login): per provare l'applicazione.
 
 ## Funzionalità
 Dopo aver effettuato l'autenticazione, gli utenti possono accedere alla sezione dove è possibile vedere la lista degli utenti, con la possibilità di svolgere una ricerca per nome o email. È possibile creare o eliminare un nuovo utente.
